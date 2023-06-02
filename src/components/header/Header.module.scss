@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menuItems {
+  width: 133px;
+  display: flex;
+  justify-content: space-between;
+  // text-underline-offset: 25px;
+  // text-decoration-thickness: 5px;
+  
+}
+
+
+
+
+.links:link {
+  color: black;
+  text-decoration: none;
+
+}
+
+.links:hover {
+  text-decoration-line: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 25px;
+}
+.links:visited {
+  // color: #0073E6;
+  color: #172029;
+  text-decoration: none;
+}
+
+
+.cart {
+  img {
+    margin-right: 6px;
+  }
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+}

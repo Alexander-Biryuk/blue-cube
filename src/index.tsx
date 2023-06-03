@@ -1,35 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
 // declare module '@mui/material/styles' {
 
 //   interface Palette {
 //     black: Palette['primary'];
-//     white: Palette['primary'];
-//     // brand: Palette['primary'];
-//     // brandLight1: Palette['primary'];
-//     // brandLight2: Palette['primary'];
-//     // brandLight3: Palette['primary'];
-//     // gray: Palette['primary'];
-//     // grayLight1: Palette['primary'];
-//     // accent: Palette['primary'];
-//     // focus: Palette['primary'];
-//   }
+    // white: Palette['primary'];
+    // brand: Palette['primary'];
+    // brandLight1: Palette['primary'];
+    // brandLight2: Palette['primary'];
+    // brandLight3: Palette['primary'];
+    // gray: Palette['primary'];
+    // grayLight1: Palette['primary'];
+    // accent: Palette['primary'];
+    // focus: Palette['primary'];
+  // }
 
-//   interface PaletteOptions {
-//     black: Palette['primary'];
-//     white: Palette['primary'];
-//     // brand: Palette['primary'];
-//     // brandLight1: Palette['primary'];
-//     // brandLight2: Palette['primary'];
-//     // brandLight3: Palette['primary'];
-//     // gray: Palette['primary'];
-//     // grayLight1: Palette['primary'];
-//     // accent: Palette['primary'];
-//     // focus: Palette['primary'];
+  // interface PaletteOptions {
+  //   black: Palette['primary'];
+    // white: Palette['primary'];
+    // brand: Palette['primary'];
+    // brandLight1: Palette['primary'];
+    // brandLight2: Palette['primary'];
+    // brandLight3: Palette['primary'];
+    // gray: Palette['primary'];
+    // grayLight1: Palette['primary'];
+    // accent: Palette['primary'];
+    // focus: Palette['primary'];
 //   }
 
 // }
@@ -75,6 +75,18 @@ const theme = createTheme({
   //   main: '#ED2C19',
   // },
   // },
+  palette: {
+    primary: {
+      main: "#0073E6",
+      light: "#99C7F5",
+      dark: "#0073E6",
+    },
+  },
+  typography: {
+    fontFamily: 'Nunito',
+    
+
+  },
   components: {
     // Name of the component ⚛️
     MuiButtonBase: {
@@ -86,16 +98,16 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          transition: '0s',
-          backgroundColor: '#fff',
-          boxShadow: 'none',
+          transition: "0s",
+          backgroundColor: "#fff",
+          boxShadow: "none",
         },
       },
     },
   },
 });
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />

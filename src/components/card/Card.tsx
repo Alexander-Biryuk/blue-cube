@@ -18,9 +18,16 @@ const StyledRating = styled(Rating)({
   },
 });
 
+const MyCard = styled(Card)({
+  '&:hover': {
+    backgroundColor: '#000',
+    opacity: 1,
+  }
+})
+
 export default function GoodsCard() {
   return (
-    <Card
+    <MyCard
       sx={{
         maxWidth: 250,
         backgroundColor: '#fff',
@@ -74,6 +81,6 @@ export default function GoodsCard() {
           </Typography>
         </CardContent>
       </CardActionArea>
-    </Card>
+    </MyCard>
   );
 }

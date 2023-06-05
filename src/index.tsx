@@ -75,6 +75,7 @@ const theme = createTheme({
   //   main: '#ED2C19',
   // },
   // },
+  // spacing: 1,
   palette: {
     primary: {
       main: "#0073E6",

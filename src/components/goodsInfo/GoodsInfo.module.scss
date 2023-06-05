@@ -1,3 +1,8 @@
-.button:hover {
-  background-color: #0073E6;
+$height: calc(100vh - 48px);
+.goodsInfo {
+  margin: 0;
+  padding: 24px;
+  background-color: #F2F6FA;
+  width: 100%;
+  height: $height;
 }

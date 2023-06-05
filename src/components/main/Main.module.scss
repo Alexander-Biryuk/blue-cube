@@ -1,4 +1,7 @@
+$height: calc(100vh - 48px);
+
 .main {
-  background-color: #F2F6FA;
-  height: 100%;
+  background-color: #f2f6fa;
+  width: 100%;
+  height: $height;
 }

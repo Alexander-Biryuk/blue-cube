@@ -1,24 +1,28 @@
 .header {
   display: flex;
   justify-content: space-between;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .menuItems {
+  transform: translateX(-16px);
   width: 133px;
   display: flex;
   justify-content: space-between;
   // text-underline-offset: 25px;
   // text-decoration-thickness: 5px;
-  
 }
 
-
-
+.logo {
+  margin-left: 10px;
+}
 
 .links:link {
   color: black;
   text-decoration: none;
-
 }
 
 .links:hover {
@@ -32,14 +36,15 @@
   text-decoration: none;
 }
 
-
 .cart {
+  margin-right: 10px;
+  cursor: default;
+  font-weight: 700;
+  font-size: 16px;
   img {
     margin-right: 6px;
   }
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
+
   display: flex;
+  // margin-right: 16px;
 }

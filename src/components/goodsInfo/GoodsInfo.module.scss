@@ -1,8 +1,20 @@
-$height: calc(100vh - 48px);
+$minHeight: calc(100vh - 48px);
+$height: 100%;
 .goodsInfo {
   margin: 0;
   padding: 24px;
-  background-color: #F2F6FA;
+  background-color: #f2f6fa;
   width: 100%;
   height: $height;
+  min-height: $minHeight;
+}
+
+.description {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 8px;
+  color: #172029;
 }

@@ -1,6 +1,5 @@
 import { Box, Container, Typography } from '@mui/material';
 import widget from '../../assets/Photo.png';
-import Order from '../order/Order';
 
 export default function OrderList() {
   return (
@@ -20,13 +19,9 @@ export default function OrderList() {
         }}
       >
         <Box
-          // bgcolor={'#FFF'}
-          // borderRadius={'16px'}
-          fontFamily={'Nunitio'}
-          fontWeight={700}
-          fontSize={'16px'}
           height={'96px'}
           justifyContent={'space-between'}
+          alignItems={'center'}
           display={'flex'}
           sx={{
             maxWidth: '1280px',
@@ -39,16 +34,17 @@ export default function OrderList() {
           >
             <Box
               width={'120px'}
+              height={'48px'}
               display={'flex'}
               flexDirection={'column'}
-              justifyContent={'center'}
+              justifyContent={'space-around'}
               alignItems={'start'}
             >
-              <Typography sx={{ fontWeight: 700, color: '#808080' }}>
-                Заказ
-              </Typography>
+              <Typography variant={'secondaryFont'}>Заказ</Typography>
               <Typography
-                sx={{ fontWeight: 700, fontSize: '20px', color: '#172029' }}
+                variant={'secondaryFont'}
+                fontSize={'20px'}
+                color={'#172029'}
               >
                 №344300
               </Typography>
@@ -69,29 +65,27 @@ export default function OrderList() {
           >
             <Box
               width={'94px'}
+              height={'48px'}
               display={'flex'}
               flexDirection={'column'}
-              justifyContent={'center'}
+              justifyContent={'space-around'}
               alignItems={'end'}
             >
-              <Typography sx={{ fontWeight: 700, color: '#808080' }}>
-                Оформлено
-              </Typography>
-              <Typography sx={{ fontWeight: 700, color: '#808080' }}>
-                На сумму
-              </Typography>
+              <Typography variant='secondaryFont'>Оформлено</Typography>
+              <Typography variant='secondaryFont'>На сумму</Typography>
             </Box>
             <Box
               width={'150px'}
+              height={'48px'}
               display={'flex'}
               flexDirection={'column'}
-              justifyContent={'center'}
+              justifyContent={'space-around'}
               alignItems={'start'}
             >
-              <Typography sx={{ fontWeight: 700, color: '#172029' }}>
+              <Typography variant='secondaryFont' color={'#172029'}>
                 1 января 2023 г
               </Typography>
-              <Typography sx={{ fontWeight: 700, color: '#172029' }}>
+              <Typography variant='secondaryFont' color={'#172029'}>
                 8 324 ₽
               </Typography>
             </Box>

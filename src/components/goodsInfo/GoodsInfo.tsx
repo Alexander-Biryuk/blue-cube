@@ -1,21 +1,38 @@
-import { Container, Typography, Rating, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import photo from '../../assets/Photo.png';
-import star from '../../assets/Star.svg';
-import emptyStar from '../../assets/EmptyStar.svg';
+import { Container, Typography, Button } from '@mui/material';
 import returnArrow from '../../assets/ReturnArrow.svg';
 import styles from './GoodsInfo.module.scss';
+import MyRating from '../rating/StyledRating';
+import { useParams } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import parse from 'html-react-parser';
+import { addToCart } from '../../store/busketSlice';
+import GoodsName from './GoodsName';
+import GoodsPrice from './GoodsPrice';
 
-const StyledRating = styled(Rating)({
-  '& .MuiRating-iconFilled': {
-    color: '#FABC22',
-  },
-  '& .MuiRating-iconHover': {
-    color: '#FABC22',
-  },
-});
+function numberWithSpaces(n: number) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+}
 
 export default function GooodsInfo() {
+
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const products = useAppSelector((state) => state.products.products.data);
+  const good = products.find((item) => item.id === id?.slice(1));
+
+  //-----------to long title, need to cut it down to 2-3 words-------------
+  let shortName = '';
+  if (good !== undefined) {
+    shortName = good.title;
+    let i = 4;
+    while (shortName.length > 22) {
+      shortName = good?.title.split(' ').slice(0, i).join(' ');
+      i--;
+    }
+  }
+
+  const htmlContent = good?.description || '';
+
   return (
     <div className={styles.goodsInfo}>
       <Container
@@ -28,50 +45,19 @@ export default function GooodsInfo() {
           padding: '24px',
         }}
       >
-        <img src={photo} alt='photo' />
+        <img src={good?.picture} alt='photo' />
         <Container>
-          <Typography
-            sx={{
-              fontFamily: 'Nunito',
-              fontStyle: 'normal',
-              fontWeight: 700,
-              fontSize: '28px',
-            }}
-          >
-            Куртка Lassie
-          </Typography>
-          <StyledRating
-            name='customized-color'
-            size='large'
-            sx={{ width: '100px' }}
-            defaultValue={5}
-            getLabelText={(value) => `${value} star${value !== 1 ? 's' : ''}`}
-            precision={0.5}
-            icon={
-              <img src={star} style={{ width: '12px', marginRight: '4px' }} />
-            }
-            emptyIcon={
-              <img
-                src={emptyStar}
-                style={{ width: '12px', marginRight: '4px' }}
-              />
-            }
-          />
-          <Typography
-            sx={{
-              fontFamily: 'Nunito',
-              fontStyle: 'normal',
-              fontWeight: 800,
-              fontSize: '28px',
-              mt: '20px',
-            }}
-          >
-            6 199 ₽
-          </Typography>
+          
+          <GoodsName shortName={shortName} />
+
+          <MyRating stars={good?.rating as number} />
+
+          <GoodsPrice price={good?.price as number} />
           <Button
             variant='contained'
             disableElevation
             color='primary'
+            onClick={() => dispatch(addToCart(good))}
             sx={{
               backgroundColor: 'primary',
               textTransform: 'none',
@@ -101,7 +87,11 @@ export default function GooodsInfo() {
               mt: '24px',
             }}
           >
-            <img src={returnArrow} alt='return' />
+            <img
+              src={returnArrow}
+              alt='return'
+              style={{ marginRight: '10px' }}
+            />
             Условия возврата
           </Typography>
           <Typography
@@ -134,7 +124,7 @@ export default function GooodsInfo() {
       <Container
         sx={{
           width: '792px',
-          height: '269px',
+          // height: '269px',
           display: 'flex',
           flexDirection: 'column',
           background: '#FFFFFF',
@@ -146,7 +136,9 @@ export default function GooodsInfo() {
         <Typography component={'p'} sx={{ fontWeight: 700, fontSize: '20px' }}>
           Описание
         </Typography>
-        <Typography style={{lineHeight: '20px'}}
+        <Typography
+          style={{ lineHeight: '20px' }}
+          component={'div'}
           sx={{
             // fontFamily: 'Nunito',
             fontStyle: 'normal',
@@ -156,18 +148,9 @@ export default function GooodsInfo() {
             color: '#172029',
           }}
         >
-          Детская зимняя куртка Reimatec® изготовлена из износостойкого, водо- и
-          ветронепроницаемого, дышащего материала с грязеотталкивающей
-          поверхностью. Швы в детской куртке проклеены и водонепроницаемы,
-          поэтому неожиданный снегопад или дождь не помешает веселым играм на
-          свежем воздухе! Эту удобную куртку с подкладкой из гладкого полиэстера
-          легко надевать и удобно носить. Благодаря регулируемой талии и подолу
-          куртка прямого кроя отлично сидит по фигуре. Капюшон снабжен кнопками.
-          Это обеспечивает дополнительную безопасность во время активных
-          прогулок – капюшон легко отстегивается, если случайно за что-нибудь
-          зацепится. Практичная отделка: эластичные манжеты, два передних
-          кармана с клапанами и светоотражающие детали.
+          {parse(htmlContent)}
         </Typography>
+        {/* <div className={styles.description}>{parse(htmlContent)}</div> */}
       </Container>
     </div>
   );

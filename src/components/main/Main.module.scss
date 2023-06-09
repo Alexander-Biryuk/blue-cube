@@ -1,7 +1,19 @@
-$height: calc(100vh - 48px);
+$minHeight: calc(100vh - 48px);
+$height: 100%;
+$mainBlue: #0073E6;
+$ligntBlue: #338FEB;
+$darkBlue: #005CB8;
+$veryLightBlue: #89B7E5;
+
+$lghtPag: #E6F1FC;
+$bluePag: #CFE4FA;
+$darkPag: #0073E6;
+$disPag: #E5E9EE;
+
 
 .main {
   background-color: #f2f6fa;
   width: 100%;
+  min-height: $minHeight;
   height: $height;
 }

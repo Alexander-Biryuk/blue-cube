@@ -1,40 +1,52 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.tsx';
+import { Provider } from 'react-redux';
+import store from './store/store.tsx';
+import './index.css';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
-// declare module '@mui/material/styles' {
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    primaryFont: React.CSSProperties;
+    secondaryFont: React.CSSProperties;
+  }
 
-//   interface Palette {
-//     black: Palette['primary'];
-    // white: Palette['primary'];
-    // brand: Palette['primary'];
-    // brandLight1: Palette['primary'];
-    // brandLight2: Palette['primary'];
-    // brandLight3: Palette['primary'];
-    // gray: Palette['primary'];
-    // grayLight1: Palette['primary'];
-    // accent: Palette['primary'];
-    // focus: Palette['primary'];
-  // }
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    primaryFont?: React.CSSProperties;
+    secondaryFont?: React.CSSProperties;
+  }
+}
 
-  // interface PaletteOptions {
-  //   black: Palette['primary'];
-    // white: Palette['primary'];
-    // brand: Palette['primary'];
-    // brandLight1: Palette['primary'];
-    // brandLight2: Palette['primary'];
-    // brandLight3: Palette['primary'];
-    // gray: Palette['primary'];
-    // grayLight1: Palette['primary'];
-    // accent: Palette['primary'];
-    // focus: Palette['primary'];
-//   }
-
-// }
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    primaryFont: true;
+    secondaryFont: true;
+    // h3: false;
+  }
+}
 
 const theme = createTheme({
+  typography: {
+    primaryFont: {
+      fontFamily: 'Nunito',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      fontSize: '16px',
+      lineHeight: '20px',
+      color: '#172029',
+    },
+    secondaryFont: {
+      fontFamily: 'Nunito',
+      fontStyle: 'normal',
+      fontWeight: '700',
+      fontSize: '16px',
+      lineHeight: '20px',
+      color: '#808080',
+    },
+  },
   // palette: {
   //   primary: {
   //     main: '#61dafb',
@@ -78,16 +90,12 @@ const theme = createTheme({
   // spacing: 1,
   palette: {
     primary: {
-      main: "#0073E6",
-      light: "#99C7F5",
-      dark: "#0073E6",
+      main: '#0073E6',
+      light: '#99C7F5',
+      dark: '#0073E6',
     },
   },
-  typography: {
-    fontFamily: 'Nunito',
-    
 
-  },
   components: {
     // Name of the component ⚛️
     MuiButtonBase: {
@@ -99,20 +107,28 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          transition: "0s",
-          backgroundColor: "#fff",
-          boxShadow: "none",
+          transition: '0s',
+          backgroundColor: '#fff',
+          boxShadow: 'none',
         },
       },
     },
+    // MuiTypography: {
+    //   defaultProps: {
+    //     variantMapping: {
+    //       // Map the new variant to render a <p> by default
+    //       primaryFont: 'p',
+    //     },
+    //   },
+    // },
   },
 });
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <App />
     </ThemeProvider>
-  </React.StrictMode>
+  </Provider>
 );

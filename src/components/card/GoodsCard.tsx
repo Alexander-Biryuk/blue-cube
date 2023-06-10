@@ -19,6 +19,7 @@ interface PropType {
 }
 
 export default function GoodsCard({id, picture, name, rating, price}: PropType) {
+  //----------cutting long title to 2 - 3 words------------
   let shortName = name;
   let i = 4;
   while (shortName.length > 22) {

@@ -16,19 +16,14 @@ interface Busket {
   createdAt: string;
   submitted: boolean;
 }
-
 interface Data {
-  data: [
-    {
-      id: string;
-      category: string;
-      title: string;
-      description: string;
-      price: number;
-      picture: string;
-      rating: number;
-    }
-  ];
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  price: number;
+  picture: string;
+  rating: number;
 }
 
 const initialState: Busket = {
@@ -48,13 +43,20 @@ const initialState: Busket = {
   submitted: false,
 };
 
+// const initialState = {} as Busket;
+
 const busketSlice = createSlice({
   name: 'busket',
   initialState,
   reducers: {
-    addToCart: (state, action) => {
+    addToCart: (state, action: PayloadAction<Data>) => {
       state.data.push(action.payload);
       console.log(state.data);
+    },
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      const indexOfRemoveElement = state.data.findIndex(item => item.id === action.payload);
+      state.data.splice(indexOfRemoveElement, 1);
+      console.log('remove', action.payload);
     },
   },
   // extraReducers: (builder) => {
@@ -62,5 +64,5 @@ const busketSlice = createSlice({
   // },
 });
 
-export const {addToCart} = busketSlice.actions;
+export const { addToCart, removeFromCart } = busketSlice.actions;
 export default busketSlice.reducer;

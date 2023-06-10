@@ -1,9 +1,10 @@
 import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import widget from '../../assets/Photo.png';
 import { useState } from 'react';
+import Counter from './Counter';
 
 function numberWithSpaces(n: number) {
-	return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 export default function Order() {
@@ -34,69 +35,21 @@ export default function Order() {
           </Typography>
         </Box>
 
-        <Box width={'158px'} display={'flex'}>
-          <Button
-            onClick={() => setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : 0))}
-            sx={{
-              backgroundColor: '#E6F1FC',
-              color: '#0073E6',
-              fontWeight: 700,
-              fontSize: '30px',
-              width: '52px',
-              height: '52px',
-              borderRadius: '12px 0px 0px 12px',
-              '&:hover': {
-                backgroundColor: '#99C7F5',
-              },
-            }}
-          >
-            -
-          </Button>
-          <Button
-            sx={{
-              backgroundColor: '#E6F1FC',
-              color: '#172029',
-              fontWeight: 700,
-              fontSize: '16px',
-              width: '52px',
-              height: '52px',
-              '&:hover': {
-                backgroundColor: '#99C7F5',
-              },
-            }}
-          >
-            {count}
-          </Button>
-          <Button
-            onClick={() => setCount((prevCount) => prevCount + 1)}
-            sx={{
-              backgroundColor: '#E6F1FC',
-              color: '#0073E6',
-              fontWeight: 700,
-              fontSize: '30px',
-              width: '52px',
-              height: '52px',
-              borderRadius: '0px 12px 12px 0px',
-              '&:hover': {
-                backgroundColor: '#99C7F5',
-              },
-            }}
-          >
-            +
-          </Button>
-        </Box>
+        {/* <Counter count={count} setCount={setCount} /> */}
+
         <Box width={'112px'}>
-          {count > 1 &&
-          <Typography
-            sx={{
-              fontWeight: 400,
-              fontSize: '12px',
-              color: '#808080',
-              textAlign: 'right',
-            }}
-          >
-            6 199 ₽ за шт.
-          </Typography>}
+          {count > 1 && (
+            <Typography
+              sx={{
+                fontWeight: 400,
+                fontSize: '12px',
+                color: '#808080',
+                textAlign: 'right',
+              }}
+            >
+              6 199 ₽ за шт.
+            </Typography>
+          )}
           <Typography
             sx={{
               fontWeight: 700,
@@ -105,7 +58,7 @@ export default function Order() {
               textAlign: 'right',
             }}
           >
-            {numberWithSpaces(6199*count)} ₽
+            {numberWithSpaces(6199 * count)} ₽
           </Typography>
         </Box>
       </Box>
@@ -121,7 +74,7 @@ export default function Order() {
         </Typography>
 
         <Typography sx={{ fontWeight: 800, fontSize: '28px' }}>
-          {numberWithSpaces(6199*count)} ₽
+          {numberWithSpaces(6199 * count)} ₽
         </Typography>
       </Box>
       <Button

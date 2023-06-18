@@ -1,21 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Busket {
-  id: string;
-  data: [
-    {
-      id: string;
-      category: string;
-      title: string;
-      description: string;
-      price: number;
-      picture: string;
-      rating: number;
-    }
-  ];
-  createdAt: string;
-  submitted: boolean;
-}
 interface Data {
   id: string;
   category: string;
@@ -25,25 +9,37 @@ interface Data {
   picture: string;
   rating: number;
 }
+interface Busket {
+  id: string;
+  data: Data[];
+  createdAt: string;
+  submitted: boolean;
+}
 
-const initialState: Busket = {
+
+// const initialState: Busket = {
+//   id: '',
+//   data: [
+//     {
+//       id: '',
+//       category: '',
+//       title: '',
+//       description: '',
+//       price: 0,
+//       picture: '',
+//       rating: 0,
+//     },
+//   ],
+//   createdAt: '',
+//   submitted: false,
+// };
+
+const initialState = {
   id: '',
-  data: [
-    {
-      id: '',
-      category: '',
-      title: '',
-      description: '',
-      price: 0,
-      picture: '',
-      rating: 0,
-    },
-  ],
+  data: [],
   createdAt: '',
   submitted: false,
-};
-
-// const initialState = {} as Busket;
+} as Busket;
 
 const busketSlice = createSlice({
   name: 'busket',

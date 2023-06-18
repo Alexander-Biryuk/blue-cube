@@ -2,12 +2,15 @@ import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import widget from '../../assets/Photo.png';
 import { useState } from 'react';
 import Counter from './Counter';
+import { useAppSelector } from '../../hooks';
 
 function numberWithSpaces(n: number) {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 export default function Order() {
+  const busket = useAppSelector(state => state.busket.data);
+  console.log('busket', busket)
   const [count, setCount] = useState(0);
   return (
     <Paper
@@ -18,7 +21,9 @@ export default function Order() {
         borderRadius: '24px',
       }}
     >
+      {busket.map(item => 
       <Box
+        key={item.id}
         display={'flex'}
         justifyContent={'space-between'}
         alignItems={'center'}
@@ -29,16 +34,18 @@ export default function Order() {
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <img src={widget} style={{ width: '52px' }}></img>
+          {/* <img src={item} style={{ width: '52px' }}></img> */}
+          <img src={item.picture} style={{ width: '52px' }}></img>
           <Typography sx={{ fontFamily: 'Nunito', fontSize: '16px' }}>
-            Куртка Lassie
+            {/* Куртка Lassie */}
+            {item.category}
           </Typography>
         </Box>
 
         {/* <Counter count={count} setCount={setCount} /> */}
 
         <Box width={'112px'}>
-          {count > 1 && (
+          {/* {count > 1 && ( */}
             <Typography
               sx={{
                 fontWeight: 400,
@@ -47,9 +54,10 @@ export default function Order() {
                 textAlign: 'right',
               }}
             >
-              6 199 ₽ за шт.
+              {/* 6 199 ₽ за шт. */}
+              {numberWithSpaces(item.price)} за шт.
             </Typography>
-          )}
+          {/* )} */}
           <Typography
             sx={{
               fontWeight: 700,
@@ -58,10 +66,11 @@ export default function Order() {
               textAlign: 'right',
             }}
           >
-            {numberWithSpaces(6199 * count)} ₽
+            {numberWithSpaces(item.price)} ₽
           </Typography>
         </Box>
       </Box>
+      )}
       <Divider sx={{ mt: '16px', color: '#F2F2F2' }} />
       <Box
         display={'flex'}
@@ -74,7 +83,7 @@ export default function Order() {
         </Typography>
 
         <Typography sx={{ fontWeight: 800, fontSize: '28px' }}>
-          {numberWithSpaces(6199 * count)} ₽
+          {numberWithSpaces(busket.reduce((acc, curr) => acc + curr.price, 0))} ₽
         </Typography>
       </Box>
       <Button

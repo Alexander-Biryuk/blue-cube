@@ -1,0 +1,1 @@
+![screenshot](/src/assets/blue-cube.png)

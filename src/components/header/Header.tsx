@@ -1,6 +1,7 @@
 import { AppBar, Container, Toolbar } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/Logo.svg';
+import cube from '../../assets/Cube.svg';
 import cart from '../../assets/Cart.svg';
 
 import styles from './Header.module.scss';
@@ -27,13 +28,9 @@ export default function Header() {
         }}
       >
         <img src={logo} alt='logo' className={styles.logo}/>
+        <img src={cube} alt='logo' className={styles.shortLogo} />
         <div className={styles.menuItems}>
-          {/* <Link className={styles.links} href='#' underline='hover'>
-            Товары
-          </Link> */}
-          {/* <Link href='#' underline='hover' sx={{textDecorationThickness: '5px'}}>
-            Заказы
-          </Link> */}
+          
           <NavLink
             to='/'
             className={styles.links}
@@ -48,6 +45,7 @@ export default function Header() {
           >
             Товары
           </NavLink>
+          
           <NavLink
             to='/orders'
             className={styles.links}

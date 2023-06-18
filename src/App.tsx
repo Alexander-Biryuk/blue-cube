@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { fetchProducts } from './store/getProductsSlice';
 // import { useDispatch } from 'react-redux';
 import { useAppDispatch, useAppSelector } from './hooks';
+import NotFound from './components/404/NotFound';
 
 function App() {
   // const dispatch = useAppDispatch()
@@ -27,6 +28,7 @@ function App() {
           {/* <Route path='/orders' element={<Order />}/> */}
           <Route path='/orders' element={<OrderList2 />} />
           <Route path='/goodinfo/:id' element={<GooodsInfo />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         {/* <Main /> */}
       </div>

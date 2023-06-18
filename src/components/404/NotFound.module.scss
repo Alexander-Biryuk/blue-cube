@@ -1,0 +1,16 @@
+$minHeight: calc(100vh - 48px);
+$height: 100%;
+
+.notFoundContainer {
+  h1 {
+    font-size: 60px;
+  }
+  width: 100%;
+  height: $height;
+  min-height: $minHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background:  #F2F6FA;
+}

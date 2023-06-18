@@ -29,6 +29,15 @@ declare module '@mui/material/Typography' {
 }
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 550,
+      md: 850,
+      lg: 1050,
+      xl: 1300,
+    },
+  },
   typography: {
     primaryFont: {
       fontFamily: 'Nunito',

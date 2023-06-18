@@ -21,9 +21,9 @@ export default function MyRating({stars}: Value) {
       name='customized-color'
       size='large'
       sx={{ width: '100px' }}
-      defaultValue={stars}
+      value={stars}
       getLabelText={(value) => `${value} star${value !== 1 ? 's' : ''}`}
-      precision={0.5}
+      precision={0.1}
       icon={<img src={star} style={{ width: '12px', marginRight: '4px' }} />}
       emptyIcon={
         <img src={emptyStar} style={{ width: '12px', marginRight: '4px' }} />

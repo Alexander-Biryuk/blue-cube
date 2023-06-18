@@ -5,7 +5,7 @@ import MyPagination from '../pagination/MyPagination';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../store/getProductsSlice';
-import MyPagination2 from '../pagination/MyPagination2';
+import Loader from '../loader/Loader';
 
 export default function Main() {
   let currentPage = Number(sessionStorage.getItem('page'))
@@ -15,6 +15,9 @@ export default function Main() {
 
   const [page, setPage] = useState(currentPage);
   const dispatch = useAppDispatch();
+
+  // let store = sessionStorage.getItem('store');
+  // console.log(JSON.parse(store));
 
   //-----------trying to restore scroll position----------------
   // const scrollpos = sessionStorage.getItem("scrollpos");
@@ -27,6 +30,7 @@ export default function Main() {
   }, [dispatch, page]);
 
   const products = useAppSelector((state) => state.products.products.data);
+  const loading = useAppSelector(state => state.products.loading);
   const numberOfProducts = useAppSelector(
     (state) => state.products.products.meta.total
   );
@@ -68,7 +72,12 @@ export default function Main() {
   //   // console.log('scrollTop', e.target.documentElement.scrollTop);
   //   // console.log('innerHeight', window.innerHeight);
   // };
-  //---------------------infinite scroll----------------------------
+  //--------------------- end of infinite scroll code----------------------------
+  console.log(loading)
+
+  // if (loading) {
+  //   return <Loader />
+  // }
 
   return (
     <div className={styles.main}>
@@ -78,12 +87,14 @@ export default function Main() {
         justifyContent={'center'}
         alignItems={'center'}
         pt={'24px'}
+        px={'24px'}
+        flexGrow={1}
       >
         <Grid
           container
           columnSpacing={'24px'}
           rowSpacing={'24px'}
-          columns={5}
+          columns={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}}
           maxWidth={'1346px'}
         >
           {products.map((item) => (

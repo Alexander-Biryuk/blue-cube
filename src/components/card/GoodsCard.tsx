@@ -5,20 +5,20 @@ import { CardActionArea, Grid } from '@mui/material';
 // import photo from '../../assets/Photo.png';
 import styles from './GoodsCard.module.scss';
 import { Link } from 'react-router-dom';
-import MyRating from '../rating/StyledRating';
+import MyRating from '../rating/MyRating';
 import CardName from './CardName';
 import CardPrice from './CardPrice';
 // import { useSelector } from 'react-redux';
 
 interface PropType {
-  id: string,
-  picture: string,
-  name: string,
-  rating: number,
-  price: number
+  id: string;
+  picture: string;
+  name: string;
+  rating: number;
+  price: number;
 }
 
-export default function GoodsCard({id, picture, name, rating, price}: PropType) {
+export default function GoodsCard({ id, picture, name, rating, price }: PropType) {
   //----------cutting long title to 2 - 3 words------------
   let shortName = name;
   let i = 4;
@@ -27,7 +27,7 @@ export default function GoodsCard({id, picture, name, rating, price}: PropType) 
     i--;
   }
   return (
-    <Grid item xs={1}>
+    <Grid item xs={1} display={'flex'} justifyContent={'center'}>
       <Card
         sx={{
           width: 250,

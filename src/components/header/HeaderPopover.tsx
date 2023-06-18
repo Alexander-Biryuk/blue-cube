@@ -31,7 +31,7 @@ export default function HeaderPopover() {
       >
         <div className={styles.cart}>
           <img src={cart} alt='cart' />
-          Корзина ({goods?.length})
+          <span>Корзина</span> ({goods?.length})
         </div>
       </Typography>
       <Popover 

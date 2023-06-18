@@ -1,5 +1,10 @@
 import Pagination from '@mui/material/Pagination';
+import {useTheme} from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+// import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
+// import BackArrow from '../../assets/BackArrow.svg';
+// import ForwardArrow from '../../assets/ForwardArrow.svg';
 
 interface PropType {
   numberOfPages: number;
@@ -7,11 +12,9 @@ interface PropType {
   setPage: (value: React.SetStateAction<number>) => void;
 }
 
-export default function MyPagination({
-  numberOfPages,
-  page,
-  setPage,
-}: PropType) {
+export default function MyPagination({ numberOfPages, page, setPage }: PropType) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Stack spacing={2}>
       <Pagination
@@ -22,7 +25,9 @@ export default function MyPagination({
           sessionStorage.setItem('page', `${num}`);
         }}
         color='primary'
-        boundaryCount={1}
+        size={isMobile ? 'small' : 'large'}
+        boundaryCount={isMobile ? 0 : 1}
+        siblingCount={isMobile ? 0 : 1}
         sx={{
           '.MuiPaginationItem-root': {
             mt: '40px',
@@ -55,8 +60,8 @@ export default function MyPagination({
             color: '#fff',
             '&:hover': {
               background: '#0073E6',
-              color: '#fff'
-            }
+              color: '#fff',
+            },
           },
         }}
       />

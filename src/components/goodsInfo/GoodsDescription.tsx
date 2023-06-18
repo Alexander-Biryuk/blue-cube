@@ -5,9 +5,8 @@ export default function GoodsDescription({htmlContent}: {htmlContent: string}) {
 
   return (
     <Container
+        style={{maxWidth: '792px'}}
         sx={{
-          width: '792px',
-          // height: '269px',
           display: 'flex',
           flexDirection: 'column',
           background: '#FFFFFF',

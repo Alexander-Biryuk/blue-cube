@@ -53,22 +53,21 @@ const initialState: ProductsState = {
 // }
 //-------------------------------------------------------------------
 
-export const fetchProducts = createAsyncThunk<
-  Products,
-  number,
-  { rejectValue: string }
->('products/fetchProducts', async function (page, { rejectWithValue }) {
-  const response = await fetch(
-    `https://skillfactory-task.detmir.team/products?page=${page}&limit=15`
-  );
+export const fetchProducts = createAsyncThunk<Products, number, { rejectValue: string }>(
+  'products/fetchProducts',
+  async function (page, { rejectWithValue }) {
+    const response = await fetch(
+      `https://skillfactory-task.detmir.team/products?page=${page}&limit=15`
+    );
 
-  if (!response.ok) {
-    return rejectWithValue('Server Error!');
+    if (!response.ok) {
+      return rejectWithValue('Server Error!');
+    }
+
+    const data = response.json();
+    return data;
   }
-
-  const data = response.json();
-  return data;
-});
+);
 
 const getProductsSlice = createSlice({
   name: 'products',
@@ -85,7 +84,7 @@ const getProductsSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.products = action.payload;
 
-        //---------------for scroll------------------------
+        //---------------saving all new data to store for infinite scroll------------------------
         // if (state.products.meta.count === 0) {
         //   state.products = action.payload;
         // } else {
@@ -97,7 +96,7 @@ const getProductsSlice = createSlice({
         //   sessionStorage.setItem('store', JSON.stringify(state.products))
         // }
         //-------------------------------------------------------
-
+        // sessionStorage.setItem('store', JSON.stringify(state.products))
         state.loading = false;
       });
     // .addCase(fetchProducts.rejected, (state, action) => {

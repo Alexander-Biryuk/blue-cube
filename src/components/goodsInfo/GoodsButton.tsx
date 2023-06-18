@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addToCart } from '../../store/busketSlice';
 import styles from './GoodsInfo.module.scss';
 import Counter from '../order/Counter';
-import {useState} from 'react'
 
 interface GoodType {
   id: string;
@@ -19,10 +18,9 @@ export default function GoodsButton({ good }: { good: GoodType }) {
   const busket = useAppSelector((state) => state.busket.data);
   const dispatch = useAppDispatch();
   console.log(good);
-  // const [count, setCount] = useState(0);
   return (
     <>
-      {busket.includes(good) ? (
+      {busket && busket.includes(good) ? (
         <div className={styles.buttonContainer}>
           <Counter good={good} />
           <Button
@@ -60,7 +58,7 @@ export default function GoodsButton({ good }: { good: GoodType }) {
             backgroundColor: 'primary',
             textTransform: 'none',
             color: '#FFF',
-            width: '346px',
+            width: { xs: '100%', md: '346px' },
             height: '52px',
             borderRadius: '12px',
             fontFamily: 'Nunito',

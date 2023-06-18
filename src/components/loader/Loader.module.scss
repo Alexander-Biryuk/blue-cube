@@ -1,0 +1,30 @@
+.loaderContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background:  #F2F6FA;
+  z-index: 1;
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+  background: url('../../assets/Cube.svg') center no-repeat;
+  background-size: cover;
+  animation: spin-anim 1.5s linear infinite;
+}
+
+@keyframes spin-anim {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  // 50% {
+  //   transform: rotate(180deg) scale(2);
+  // }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}

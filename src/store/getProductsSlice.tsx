@@ -98,10 +98,10 @@ const getProductsSlice = createSlice({
         //-------------------------------------------------------
         // sessionStorage.setItem('store', JSON.stringify(state.products))
         state.loading = false;
+      })
+      .addCase(fetchProducts.rejected, (state) => {
+        state.error = 'Error';
       });
-    // .addCase(fetchProducts.rejected, (state, action) => {
-    //   state.error = action.error
-    // })
   },
 });
 

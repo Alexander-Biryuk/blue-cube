@@ -1,10 +1,8 @@
-import { Container, Typography, Button, Box } from '@mui/material';
-import returnArrow from '../../assets/ReturnArrow.svg';
+import { Container, Box } from '@mui/material';
 import styles from './GoodsInfo.module.scss';
 import MyRating from '../rating/MyRating';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { addToCart } from '../../store/busketSlice';
 import GoodsName from './GoodsName';
 import GoodsPrice from './GoodsPrice';
 import GoodsReturnConditions from './GoodsReturnConditions';
@@ -15,11 +13,8 @@ import { fetchDescription } from '../../store/getDescriptionSlice';
 import GoodsBackButton from './GoodsBackButton';
 import Loader from '../loader/Loader';
 import NotFound from '../404/NotFound';
-import NextButton from './NextButton';
+import DirectionButton from './DirectionButton';
 
-function numberWithSpaces(n: number) {
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-}
 interface GoodType {
   id: string;
   category: string;
@@ -44,6 +39,16 @@ export default function GooodsInfo() {
   const good = useAppSelector((state) => state.description.data);
   const loading = useAppSelector((state) => state.description.loading);
   const error = useAppSelector((state) => state.description.error);
+
+  //--------calculate next id and previous id from initial products list-------------
+  const data = useAppSelector((state) => state.products.products);
+  const products = data.data;
+  const cardsPerPage = data.meta.count;
+  const nextIndexId = products.findIndex((item) => +item.id == numberId) + 1;
+  const prevIndexId = products.findIndex((item) => +item.id == numberId) - 1;
+  const nextId =
+    nextIndexId >= cardsPerPage - 1 ? products[cardsPerPage - 1]?.id : products[nextIndexId]?.id;
+  const prevId = prevIndexId > 0 ? products[prevIndexId]?.id : products[0]?.id;
 
   //-----------------------------------------------------------------
 
@@ -76,32 +81,44 @@ export default function GooodsInfo() {
   return (
     <div className={styles.goodsInfo}>
       <GoodsBackButton />
-      <Container
-        style={{ maxWidth: '792px' }}
-        sx={{
-          // width: '792px',
-          height: '100%',
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          background: '#FFFFFF',
-          borderRadius: '16px',
-          padding: { xs: '12px', md: '24px' },
-        }}
+      <Box
+        mx={'auto'}
+        maxWidth={'944px'}
+        display={'flex'}
+        justifyContent={'center'}
+        alignItems={'center'}
       >
-        <img src={good?.picture} alt='photo' width={'100%'} style={{ maxWidth: '374px' }} />
-        {/* <div className={styles.infoContainer}> */}
-        <Container style={{ maxWidth: '350px', padding: 0 }}>
-          <GoodsName shortName={shortName} />
-          <MyRating stars={good?.rating as number} />
-          <GoodsPrice price={good?.price as number} />
-          <GoodsButton good={good as GoodType} />
-          <GoodsReturnConditions />
+        <Link to={`/goodinfo/:${prevId}`}>
+          <DirectionButton direction='backward' />
+        </Link>
+        <Container
+          style={{ maxWidth: '792px' }}
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            background: '#FFFFFF',
+            borderRadius: '16px',
+            padding: { xs: '12px', md: '24px' },
+          }}
+        >
+          <img src={good?.picture} alt='photo' width={'100%'} style={{ maxWidth: '374px' }} />
+          {/* <div className={styles.infoContainer}> */}
+          <Container style={{ maxWidth: '350px', padding: 0 }}>
+            <GoodsName shortName={shortName} />
+            <MyRating stars={good?.rating as number} />
+            <GoodsPrice price={good?.price as number} />
+            <GoodsButton good={good as GoodType} />
+            <GoodsReturnConditions />
+          </Container>
+          {/* </div> */}
         </Container>
-        {/* </div> */}
-      </Container>
-      {/* <NextButton /> */}
+        <Link to={`/goodinfo/:${nextId}`}>
+          <DirectionButton direction='forward' />
+        </Link>
+      </Box>
       <GoodsDescription htmlContent={htmlContent} />
     </div>
   );

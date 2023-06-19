@@ -66,7 +66,7 @@ const getProductsSlice = createSlice({
       .addCase(fetchDescription.rejected, (state) => {
         state.loading = false;
         state.error = 'Error';
-        console.log('error')
+        // console.log('error')
       });
   },
 });

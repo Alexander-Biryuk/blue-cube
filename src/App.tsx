@@ -5,10 +5,7 @@ import Main from './components/main/Main';
 // import OrderList from './components/orderList/OrderList';
 import OrderList2 from './components/orderList/OrderList2';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
-import { fetchProducts } from './store/getProductsSlice';
 // import { useDispatch } from 'react-redux';
-import { useAppDispatch, useAppSelector } from './hooks';
 import NotFound from './components/404/NotFound';
 
 function App() {
@@ -16,7 +13,7 @@ function App() {
   // useEffect(() => {
   //   dispatch(fetchProducts());
   // }, [dispatch]);
-  const products = useAppSelector(state => state.products.products.data);
+  // const products = useAppSelector(state => state.products.products.data);
   
   
   return (

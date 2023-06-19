@@ -5,7 +5,7 @@ import MyPagination from '../pagination/MyPagination';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../store/getProductsSlice';
-import Loader from '../loader/Loader';
+// import Loader from '../loader/Loader';
 
 export default function Main() {
   let currentPage = Number(sessionStorage.getItem('page'))
@@ -20,6 +20,7 @@ export default function Main() {
   // console.log(JSON.parse(store));
 
   //-----------trying to restore scroll position----------------
+  
   // const scrollpos = sessionStorage.getItem("scrollpos");
   //   if (scrollpos) window.scrollTo(0, +scrollpos);
   // console.log('scrollpos', scrollpos)

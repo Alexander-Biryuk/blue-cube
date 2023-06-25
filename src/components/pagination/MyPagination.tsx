@@ -1,8 +1,8 @@
-import Pagination from '@mui/material/Pagination';
-import {useTheme} from '@mui/material/styles';
+import { Pagination, PaginationItem } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-// import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
+import { Link } from 'react-router-dom';
 // import BackArrow from '../../assets/BackArrow.svg';
 // import ForwardArrow from '../../assets/ForwardArrow.svg';
 
@@ -25,6 +25,9 @@ export default function MyPagination({ numberOfPages, page, setPage }: PropType)
           sessionStorage.setItem('page', `${num}`);
         }}
         color='primary'
+        renderItem={(item) => (
+          <PaginationItem component={Link} to={`page/${item.page}`} {...item} />
+        )}
         size={isMobile ? 'small' : 'large'}
         boundaryCount={isMobile ? 0 : 1}
         siblingCount={isMobile ? 0 : 1}

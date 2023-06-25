@@ -1,8 +1,7 @@
-import { AppBar, Container, Toolbar } from '@mui/material';
+import { Toolbar } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/Logo.svg';
 import cube from '../../assets/Cube.svg';
-import cart from '../../assets/Cart.svg';
 
 import styles from './Header.module.scss';
 import HeaderPopover from './HeaderPopover';
@@ -10,31 +9,22 @@ import HeaderPopover from './HeaderPopover';
 export default function Header() {
   return (
     <header>
-      {/* <AppBar
-        position='static'
-        sx={{
-          bgcolor: '#F2F6FA',
-          boxShadow: 'none',
-          borderBottom: '1px solid #E6F1FC',
-        }}
-      > */}
       <Toolbar
         className={styles.header}
-        style={{minHeight: '48px'}}
+        style={{ minHeight: '48px' }}
         sx={{
           bgcolor: '#F2F6FA',
           boxShadow: 'none',
           borderBottom: '1px solid #E6F1FC',
         }}
       >
-        <img src={logo} alt='logo' className={styles.logo}/>
+        <img src={logo} alt='logo' className={styles.logo} />
         <img src={cube} alt='logo' className={styles.shortLogo} />
         <div className={styles.menuItems}>
-          
           <NavLink
-            to='/'
+            to='page/1'
             className={styles.links}
-            style={({ isActive, isPending }) => {
+            style={({ isActive }) => {
               return {
                 textDecorationLine: isActive ? 'underline' : 'none',
                 textDecorationThickness: isActive ? '3px' : 'none',
@@ -45,11 +35,11 @@ export default function Header() {
           >
             Товары
           </NavLink>
-          
+
           <NavLink
             to='/orders'
             className={styles.links}
-            style={({ isActive, isPending }) => {
+            style={({ isActive }) => {
               return {
                 textDecorationLine: isActive ? 'underline' : 'none',
                 textDecorationThickness: isActive ? '3px' : 'none',
@@ -61,13 +51,9 @@ export default function Header() {
             Заказы
           </NavLink>
         </div>
-        {/* <div className={styles.cart}>
-          <img src={cart} alt='cart' />
-          Корзина
-        </div> */}
+
         <HeaderPopover />
       </Toolbar>
-      {/* </AppBar> */}
     </header>
   );
 }

@@ -3,12 +3,12 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import styles from './Header.module.scss';
 import cart from '../../assets/Cart.svg';
-import Order from '../order/Order';
 import { useAppSelector } from '../../hooks';
+import Busket from '../busket/Busket';
 
 export default function HeaderPopover() {
-
-  const goods = useAppSelector(state => state.busket.data);
+  const goods = useAppSelector((state) => state.busket);
+  console.log('good', goods);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,8 +34,8 @@ export default function HeaderPopover() {
           <span>Корзина</span> ({goods?.length})
         </div>
       </Typography>
-      <Popover 
-        sx={{borderRadius: '16px'}}
+      <Popover
+        sx={{ borderRadius: '16px' }}
         id='mouse-over-popover'
         open={open}
         anchorEl={anchorEl}
@@ -49,7 +49,7 @@ export default function HeaderPopover() {
         }}
         onClose={handlePopoverClose}
       >
-        <Order />
+        <Busket />
       </Popover>
     </div>
   );

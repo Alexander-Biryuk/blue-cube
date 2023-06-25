@@ -1,5 +1,5 @@
 import styles from './Loader.module.scss';
-import cube from '../../assets/Cube.svg';
+// import cube from '../../assets/Cube.svg';
 
 export default function Loader() {
   return (

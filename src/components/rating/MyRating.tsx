@@ -12,9 +12,9 @@ const StyledRating = styled(Rating)({
   },
 });
 
-type Value = {stars: number};
+type Value = { stars: number };
 
-export default function MyRating({stars}: Value) {
+export default function MyRating({ stars }: Value) {
   return (
     <StyledRating
       readOnly
@@ -25,9 +25,7 @@ export default function MyRating({stars}: Value) {
       getLabelText={(value) => `${value} star${value !== 1 ? 's' : ''}`}
       precision={0.1}
       icon={<img src={star} style={{ width: '12px', marginRight: '4px' }} />}
-      emptyIcon={
-        <img src={emptyStar} style={{ width: '12px', marginRight: '4px' }} />
-      }
+      emptyIcon={<img src={emptyStar} style={{ width: '12px', marginRight: '4px' }} />}
     />
   );
 }

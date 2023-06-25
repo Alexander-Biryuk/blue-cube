@@ -14,6 +14,7 @@ import GoodsBackButton from './GoodsBackButton';
 import Loader from '../loader/Loader';
 import NotFound from '../404/NotFound';
 import DirectionButton from './DirectionButton';
+import { getCart } from '../../store/busketSlice';
 
 interface GoodType {
   id: string;
@@ -28,12 +29,14 @@ interface GoodType {
 export default function GooodsInfo() {
   const dispatch = useAppDispatch();
 
-  const { id } = useParams();
+  const { num, id } = useParams();
+  const page = Number(num);
+  const numberId = Number(id);
 
   //---------additional fetching of description data---------------
-  const numberId = Number(id?.slice(1));
   useEffect(() => {
     dispatch(fetchDescription(numberId));
+    dispatch(getCart());
   }, [dispatch, numberId]);
 
   const good = useAppSelector((state) => state.description.data);
@@ -57,7 +60,7 @@ export default function GooodsInfo() {
   // const good = products.find((item) => item.id === id?.slice(1));
   //------------------------------------------------------------------------
 
-  //-----------to long title, need to cut it down to 2-3 words-------------
+  //-----------too long title, need to cut it down to 2-3 words-------------
   let shortName = '';
   if (good !== undefined) {
     shortName = good.title;
@@ -88,7 +91,7 @@ export default function GooodsInfo() {
         justifyContent={'center'}
         alignItems={'center'}
       >
-        <Link to={`/goodinfo/:${prevId}`}>
+        <Link to={`/page/${page}/products/${prevId}`}>
           <DirectionButton direction='backward' />
         </Link>
         <Container
@@ -115,7 +118,7 @@ export default function GooodsInfo() {
           </Container>
           {/* </div> */}
         </Container>
-        <Link to={`/goodinfo/:${nextId}`}>
+        <Link to={`/page/${page}/products/${nextId}`}>
           <DirectionButton direction='forward' />
         </Link>
       </Box>

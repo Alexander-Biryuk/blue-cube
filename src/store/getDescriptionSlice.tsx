@@ -44,7 +44,6 @@ export const fetchDescription = createAsyncThunk<Description, number, { rejectVa
     }
 
     const data = response.json();
-    console.log(data);
     return data;
   }
 );

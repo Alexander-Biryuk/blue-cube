@@ -27,11 +27,7 @@ export default function OrderList() {
             maxWidth: '1280px',
           }}
         >
-          <Box
-            width={'352px'}
-            display={'flex'}
-            justifyContent={'space-between'}
-          >
+          <Box width={'352px'} display={'flex'} justifyContent={'space-between'}>
             <Box
               width={'120px'}
               height={'48px'}
@@ -41,11 +37,7 @@ export default function OrderList() {
               alignItems={'start'}
             >
               <Typography variant={'secondaryFont'}>Заказ</Typography>
-              <Typography
-                variant={'secondaryFont'}
-                fontSize={'20px'}
-                color={'#172029'}
-              >
+              <Typography variant={'secondaryFont'} fontSize={'20px'} color={'#172029'}>
                 №344300
               </Typography>
             </Box>
@@ -58,11 +50,7 @@ export default function OrderList() {
             </Box>
           </Box>
 
-          <Box
-            width={'252px'}
-            display={'flex'}
-            justifyContent={'space-between'}
-          >
+          <Box width={'252px'} display={'flex'} justifyContent={'space-between'}>
             <Box
               width={'94px'}
               height={'48px'}

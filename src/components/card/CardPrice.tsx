@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 
 function numberWithSpaces(n: number) {
-	return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 export default function CardPrice({ price }: { price: number }) {

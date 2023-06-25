@@ -1,0 +1,57 @@
+import { Box, Grid } from '@mui/material';
+import GoodsCard from '../card/GoodsCard';
+import styles from './Main.module.scss';
+import MyPagination from '../pagination/MyPagination';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect, useState } from 'react';
+import { fetchProducts } from '../../store/getProductsSlice';
+import Loader from '../loader/Loader';
+import { getCart } from '../../store/busketSlice';
+import { useParams } from 'react-router-dom';
+
+interface PropType {
+  products: [
+    {
+      id: string;
+      category: string;
+      title: string;
+      description: string;
+      price: number;
+      picture: string;
+      rating: number;
+    }
+  ];
+}
+
+export default function Page() {
+  const { num } = useParams();
+  console.log('page from Page', num)
+  const page = Number(num);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts(page));
+  }, [dispatch, page])
+  const productss = useAppSelector(state => state.products.products.data);
+
+  return (
+    <Grid
+      container
+      columnSpacing={'24px'}
+      rowSpacing={'24px'}
+      columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+      maxWidth={'1346px'}
+    >
+      {productss.map((item) => (
+        <GoodsCard
+          key={item.id}
+          id={item.id}
+          picture={item.picture}
+          name={item.title}
+          rating={item.rating}
+          price={item.price}
+        />
+      ))}
+    </Grid>
+  );
+}

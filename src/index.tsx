@@ -56,47 +56,7 @@ const theme = createTheme({
       color: '#808080',
     },
   },
-  // palette: {
-  //   primary: {
-  //     main: '#61dafb',
-  //   },
-  //   secondary: {
-  //     main: '#da61bf',
-  //   },
-  //   black: {
-  //     main: '#172029',
-  //     contrastText: '#fff',
-  //     white: '#fff',
-  //   },
-  // white: {
-  //   main: '#fff',
-  // },
-  // brand: {
-  //   main: '#0073E6',
-  // },
-  // brandLight1: {
-  //   main: '#99C7F5',
-  // },
-  // brandLight2: {
-  //   main: '#E6F1FC',
-  // },
-  // brandLight3: {
-  //   main: '#F2F6FA',
-  // },
-  // grey: {
-  //   main: '#808080',
-  // },
-  // greyLight1: {
-  //   main: '#F2F2F2',
-  // },
-  // accent: {
-  //   main: '#FABC22',
-  // },
-  // focus: {
-  //   main: '#ED2C19',
-  // },
-  // },
-  // spacing: 1,
+
   palette: {
     primary: {
       main: '#0073E6',
@@ -122,14 +82,6 @@ const theme = createTheme({
         },
       },
     },
-    // MuiTypography: {
-    //   defaultProps: {
-    //     variantMapping: {
-    //       // Map the new variant to render a <p> by default
-    //       primaryFont: 'p',
-    //     },
-    //   },
-    // },
   },
 });
 

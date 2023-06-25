@@ -1,46 +1,51 @@
-import { Box, Grid } from '@mui/material';
-import GoodsCard from '../card/GoodsCard';
+import { Box } from '@mui/material';
 import styles from './Main.module.scss';
 import MyPagination from '../pagination/MyPagination';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect, useState } from 'react';
-import { fetchProducts } from '../../store/getProductsSlice';
+import { useAppSelector } from '../../hooks';
+import { useState } from 'react';
+// import { fetchProducts } from '../../store/getProductsSlice';
 // import Loader from '../loader/Loader';
+// import { getCart } from '../../store/busketSlice';
+import Page from '../page/Page';
+import { useParams } from 'react-router-dom';
 
 export default function Main() {
-  let currentPage = Number(sessionStorage.getItem('page'))
-    ? Number(sessionStorage.getItem('page'))
-    : 1;
-  if (!currentPage) currentPage = 1;
+  const { num } = useParams();
+  // const page = Number(id);
+  // let currentPage = Number(sessionStorage.getItem('page'))
+  //   ? Number(sessionStorage.getItem('page'))
+  //   : 1;
+  // if (!currentPage) currentPage = 1;
 
-  const [page, setPage] = useState(currentPage);
-  const dispatch = useAppDispatch();
+  const [page, setPage] = useState(Number(num));
 
   // let store = sessionStorage.getItem('store');
   // console.log(JSON.parse(store));
 
   //-----------trying to restore scroll position----------------
-  
+
   // const scrollpos = sessionStorage.getItem("scrollpos");
   //   if (scrollpos) window.scrollTo(0, +scrollpos);
   // console.log('scrollpos', scrollpos)
   //-------------------------------------------
 
-  useEffect(() => {
-    dispatch(fetchProducts(page));
-  }, [dispatch, page]);
+  // useEffect(() => {
+  //   dispatch(fetchProducts(page));
+  // }, [dispatch, page]);
 
-  const products = useAppSelector((state) => state.products.products.data);
-  const loading = useAppSelector(state => state.products.loading);
-  const numberOfProducts = useAppSelector(
-    (state) => state.products.products.meta.total
-  );
+  // useEffect(() => {
+  //   dispatch(getCart());
+  // },[dispatch])
+
+  // const products = useAppSelector((state) => state.products.products.data);
+  // const loading = useAppSelector((state) => state.products.loading);
+  const numberOfProducts = useAppSelector((state) => state.products.products.meta.total);
   const numberOfPages = Math.ceil(numberOfProducts / 15);
   // console.log(numberOfPages);
 
   //-------------infinite scroll----------------------------
 
-  // const [fetching, setFetching] = useState(true); 
+  // const [fetching, setFetching] = useState(true);
   // useEffect(() => {
   //   if (fetching) {
   //     console.log('fetching');
@@ -74,7 +79,6 @@ export default function Main() {
   //   // console.log('innerHeight', window.innerHeight);
   // };
   //--------------------- end of infinite scroll code----------------------------
-  console.log(loading)
 
   // if (loading) {
   //   return <Loader />
@@ -91,30 +95,8 @@ export default function Main() {
         px={'24px'}
         flexGrow={1}
       >
-        <Grid
-          container
-          columnSpacing={'24px'}
-          rowSpacing={'24px'}
-          columns={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}}
-          maxWidth={'1346px'}
-        >
-          {products.map((item) => (
-            <GoodsCard
-              key={item.id}
-              id={item.id}
-              picture={item.picture}
-              name={item.title}
-              rating={item.rating}
-              price={item.price}
-            />
-          ))}
-        </Grid>
-        <MyPagination
-          numberOfPages={numberOfPages}
-          page={page}
-          setPage={setPage}
-        />
-        {/* <MyPagination2 numberOfPages={numberOfPages} page={page} setPage={setPage}/> */}
+        <Page />
+        <MyPagination numberOfPages={numberOfPages} page={page} setPage={setPage} />
       </Box>
     </div>
   );

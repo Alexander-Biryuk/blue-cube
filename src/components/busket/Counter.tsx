@@ -77,8 +77,13 @@ export default function Counter({ good }: { good: GoodType }) {
   }
 
   return (
-    <div onMouseLeave={() => dispatch(updateCart(busket))}>
-      <Box width={'156px'} display={'flex'}>
+    <>
+      <Box
+        width={'156px'}
+        display={'flex'}
+        component={'div'}
+        onMouseLeave={() => dispatch(updateCart(busket))}
+      >
         <Button
           disabled={makeMinusDisable}
           onClick={() => dispatch(removeFromCart(good.id))}
@@ -127,6 +132,6 @@ export default function Counter({ good }: { good: GoodType }) {
         setOpen={setOpenOnOverSum}
         message='Сумма заказа не может превышать 10 000р :('
       />
-    </div>
+    </>
   );
 }

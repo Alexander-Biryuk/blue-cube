@@ -1,7 +1,10 @@
 import { Box, Container, Typography } from '@mui/material';
 import widget from '../../assets/Photo.png';
+import { useAppSelector } from '../../hooks';
 
 export default function OrderList() {
+  const orders = useAppSelector(state => state.orders);
+  console.log(orders);
   return (
     <div
       style={{

@@ -25,14 +25,13 @@ interface PropType {
 
 export default function Page() {
   const { num } = useParams();
-  console.log('page from Page', num)
-  const page = Number(num);
+  const page = Number(num) || 1;
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchProducts(page));
   }, [dispatch, page])
-  const productss = useAppSelector(state => state.products.products.data);
+  const products = useAppSelector(state => state.products.products.data);
 
   return (
     <Grid
@@ -42,7 +41,7 @@ export default function Page() {
       columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
       maxWidth={'1346px'}
     >
-      {productss.map((item) => (
+      {products.map((item) => (
         <GoodsCard
           key={item.id}
           id={item.id}

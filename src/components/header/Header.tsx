@@ -5,8 +5,12 @@ import cube from '../../assets/Cube.svg';
 
 import styles from './Header.module.scss';
 import HeaderPopover from './HeaderPopover';
+import { HOME, ORDERS, PAGE } from '../paths/paths';
+import { useAppDispatch } from '../../hooks';
+import { getOrders } from '../../store/ordersSlice';
 
 export default function Header() {
+  const dispatch = useAppDispatch();
   return (
     <header>
       <Toolbar
@@ -22,7 +26,8 @@ export default function Header() {
         <img src={cube} alt='logo' className={styles.shortLogo} />
         <div className={styles.menuItems}>
           <NavLink
-            to='page/1'
+            // to='page/1'
+            to={PAGE + '1'}
             className={styles.links}
             style={({ isActive }) => {
               return {
@@ -37,7 +42,8 @@ export default function Header() {
           </NavLink>
 
           <NavLink
-            to='/orders'
+            to={ORDERS}
+            onClick={() => dispatch(getOrders(1))}
             className={styles.links}
             style={({ isActive }) => {
               return {

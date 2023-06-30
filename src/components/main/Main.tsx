@@ -17,7 +17,7 @@ export default function Main() {
   //   : 1;
   // if (!currentPage) currentPage = 1;
 
-  const [page, setPage] = useState(Number(num));
+  const [page, setPage] = useState(Number(num) || 1);
 
   // let store = sessionStorage.getItem('store');
   // console.log(JSON.parse(store));

@@ -5,11 +5,12 @@ import Main from './components/main/Main';
 import Page from './components/page/Page';
 // import OrderList from './components/orderList/OrderList';
 import OrderList2 from './components/orderList/OrderList2';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes,  } from 'react-router-dom';
 import NotFound from './components/404/NotFound';
 import { useAppDispatch } from './hooks';
 import { useEffect } from 'react';
 import { getCart } from './store/busketSlice';
+import { HOME, PAGE, DESCRIPTION, ORDERS, NOT_FOUND } from './components/paths/paths';
 // import { fetchProducts } from './store/getProductsSlice';
 
 function App() {
@@ -35,13 +36,14 @@ function App() {
       <div>
         <Header />
         <Routes>
-          <Route path='/' element={<Main />}>
-            <Route path='page/:num' element={<Page />}></Route>
+          <Route path={HOME} element={<Main />}>
+            {/* <Route index element={<Page />}/> */}
+            <Route path={PAGE + ':num'} element={<Page />}/>
           </Route>
-          <Route path='page/:num/products/:id' element={<GooodsInfo />} />
+          <Route path={PAGE + ':num' + DESCRIPTION + ':id'} element={<GooodsInfo />} />
           {/* <Route path='/orders' element={<Order />}/> */}
-          <Route path='orders' element={<OrderList2 />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path={ORDERS} element={<OrderList2 />} />
+          <Route path={NOT_FOUND} element={<NotFound />} />
         </Routes>
       </div>
     </BrowserRouter>

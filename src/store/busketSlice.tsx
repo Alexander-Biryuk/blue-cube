@@ -33,12 +33,14 @@ export const updateCart = createAsyncThunk<Busket[], Busket[], { rejectValue: st
     const response = await fetch('https://skillfactory-task.detmir.team/cart/update', {
       method: 'POST',
       headers: {
+        'accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(update),
     });
     if (!response.ok) {
       rejectWithValue('Server Error');
+      console.log('asdf')
     }
     const data = response.json();
     return data;
@@ -82,20 +84,23 @@ const busketSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(updateCart.pending, () => {
-        console.log('created at');
-      })
+      // .addCase(updateCart.pending, () => {
+      //   console.log('created at');
+      // })
       .addCase(updateCart.fulfilled, (state, action) => {
         return action.payload;
       })
-      .addCase(getCart.pending, () => {
-        console.log('get cart pending');
+      .addCase(updateCart.rejected, (state, action) => {
+        console.log(action.error)
       })
+      // .addCase(getCart.pending, () => {
+      //   console.log('get cart pending');
+      // })
       .addCase(getCart.fulfilled, (state, action) => {
         return action.payload;
       })
-      .addCase(getCart.rejected, () => {
-        console.log('get cart rejected');
+      .addCase(getCart.rejected, (state, action) => {
+        console.log(action.error);
       });
   },
 });

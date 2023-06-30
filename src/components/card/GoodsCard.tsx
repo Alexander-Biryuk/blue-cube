@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import MyRating from '../rating/MyRating';
 import CardName from './CardName';
 import CardPrice from './CardPrice';
+import { DESCRIPTION, PAGE } from '../paths/paths';
 
 interface PropType {
   id: string;
@@ -40,7 +41,7 @@ export default function GoodsCard({ id, picture, name, rating, price }: PropType
           },
         }}
       >
-        <Link to={`page/${page}/products/${id}`} className={styles.links}>
+        <Link to={`${PAGE + page + DESCRIPTION + id}`} className={styles.links}>
           <CardActionArea style={{ color: '#fff', width: '250px' }}>
             <CardMedia component='img' height='250' width='250' image={picture} alt='photo' />
             <CardContent>

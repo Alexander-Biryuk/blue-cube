@@ -15,6 +15,8 @@ import Loader from '../loader/Loader';
 import NotFound from '../404/NotFound';
 import DirectionButton from './DirectionButton';
 import { getCart } from '../../store/busketSlice';
+import { fetchProducts } from '../../store/getProductsSlice';
+import { DESCRIPTION, PAGE } from '../paths/paths';
 
 interface GoodType {
   id: string;
@@ -34,17 +36,20 @@ export default function GooodsInfo() {
   const numberId = Number(id);
 
   //---------additional fetching of description data---------------
-  useEffect(() => {
-    dispatch(fetchDescription(numberId));
-    dispatch(getCart());
-  }, [dispatch, numberId]);
 
   const good = useAppSelector((state) => state.description.data);
   const loading = useAppSelector((state) => state.description.loading);
   const error = useAppSelector((state) => state.description.error);
+  const data = useAppSelector((state) => state.products.products);
 
   //--------calculate next id and previous id from initial products list-------------
-  const data = useAppSelector((state) => state.products.products);
+
+  useEffect(() => {
+    dispatch(fetchDescription(numberId));
+    dispatch(getCart());
+    if (data.meta.total === 0) dispatch(fetchProducts(page));
+  }, [dispatch, numberId, data.meta.total, page]);
+
   const products = data.data;
   const cardsPerPage = data.meta.count;
   const nextIndexId = products.findIndex((item) => +item.id == numberId) + 1;
@@ -91,7 +96,7 @@ export default function GooodsInfo() {
         justifyContent={'center'}
         alignItems={'center'}
       >
-        <Link to={`/page/${page}/products/${prevId}`}>
+        <Link to={`${PAGE + page + DESCRIPTION + prevId}`}>
           <DirectionButton direction='backward' />
         </Link>
         <Container
@@ -108,7 +113,6 @@ export default function GooodsInfo() {
           }}
         >
           <img src={good?.picture} alt='photo' width={'100%'} style={{ maxWidth: '374px' }} />
-          {/* <div className={styles.infoContainer}> */}
           <Container style={{ maxWidth: '350px', padding: 0 }}>
             <GoodsName shortName={shortName} />
             <MyRating stars={good?.rating as number} />
@@ -116,9 +120,8 @@ export default function GooodsInfo() {
             <GoodsButton good={good as GoodType} />
             <GoodsReturnConditions />
           </Container>
-          {/* </div> */}
         </Container>
-        <Link to={`/page/${page}/products/${nextId}`}>
+        <Link to={`${PAGE + page + DESCRIPTION + nextId}`}>
           <DirectionButton direction='forward' />
         </Link>
       </Box>

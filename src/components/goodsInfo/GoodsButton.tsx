@@ -6,6 +6,8 @@ import Counter from '../busket/Counter';
 import trash from '../../assets/Trash.svg';
 import MySnackbar from '../snackbar/MySnackbar';
 import { useState } from 'react';
+import { submitCart } from '../../store/ordersSlice';
+import { getOrders } from '../../store/ordersSlice';
 
 interface GoodType {
   id: string;
@@ -80,7 +82,7 @@ export default function GoodsButton({ good }: { good: GoodType }) {
               variant='contained'
               disableElevation
               color='primary'
-              // onClick={() => dispatch(addToCart(good))}
+              onClick={() => dispatch(submitCart())}
               sx={{
                 backgroundColor: 'primary',
                 textTransform: 'none',
@@ -98,6 +100,7 @@ export default function GoodsButton({ good }: { good: GoodType }) {
             >
               Оформить заказ
             </Button>
+            <button onClick={() => dispatch(getOrders(1))}>get Orders</button>
           </div>
         ) : (
           <div className={styles.buttonContainer}>

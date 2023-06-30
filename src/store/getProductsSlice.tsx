@@ -64,7 +64,7 @@ export const fetchProducts = createAsyncThunk<Products, number, { rejectValue: s
       return rejectWithValue('Server Error!');
     }
 
-    const data = response.json();
+    const data: Products = await response.json();
     return data;
   }
 );

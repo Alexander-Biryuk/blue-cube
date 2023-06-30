@@ -8,7 +8,6 @@ import Busket from '../busket/Busket';
 
 export default function HeaderPopover() {
   const goods = useAppSelector((state) => state.busket);
-  console.log('good', goods);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {

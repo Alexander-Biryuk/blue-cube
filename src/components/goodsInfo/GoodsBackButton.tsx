@@ -1,13 +1,14 @@
 import { Box, Typography } from '@mui/material';
 import backArrow from '../../assets/BackArrow.svg';
 import { Link, useParams } from 'react-router-dom';
+import { PAGE } from '../paths/paths';
 
 export default function GoodsBackButton() {
   const { num } = useParams();
   const page = Number(num);
 
   return (
-    <Link to={`/page/${page}`}>
+    <Link to={`${PAGE + page}`}>
       <Box
         display={'flex'}
         width={'73px'}

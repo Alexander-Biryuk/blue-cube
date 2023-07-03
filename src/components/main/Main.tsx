@@ -4,10 +4,11 @@ import MyPagination from '../pagination/MyPagination';
 import { useAppSelector } from '../../hooks';
 import { useState } from 'react';
 // import { fetchProducts } from '../../store/getProductsSlice';
-// import Loader from '../loader/Loader';
+import Loader from '../loader/Loader';
 // import { getCart } from '../../store/busketSlice';
 import Page from '../page/Page';
 import { useParams } from 'react-router-dom';
+import { selectData, selectProductsIsLoading } from '../../selectors/selectors';
 
 export default function Main() {
   const { num } = useParams();
@@ -38,8 +39,12 @@ export default function Main() {
   // },[dispatch])
 
   // const products = useAppSelector((state) => state.products.products.data);
-  // const loading = useAppSelector((state) => state.products.loading);
-  const numberOfProducts = useAppSelector((state) => state.products.products.meta.total);
+
+  // const isLoading = useAppSelector((state) => state.products.loading);
+  // const numberOfProducts = useAppSelector((state) => state.products.products.meta.total);
+
+  const isLoading = useAppSelector(selectProductsIsLoading);
+  const numberOfProducts = useAppSelector(selectData).meta.total;
   const numberOfPages = Math.ceil(numberOfProducts / 15);
   // console.log(numberOfPages);
 
@@ -95,9 +100,11 @@ export default function Main() {
         px={'24px'}
         flexGrow={1}
       >
+        {isLoading ? <Loader /> : null}
         <Page />
         <MyPagination numberOfPages={numberOfPages} page={page} setPage={setPage} />
       </Box>
     </div>
   );
 }
+

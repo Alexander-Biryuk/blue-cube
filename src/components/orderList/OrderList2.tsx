@@ -1,88 +1,58 @@
 import { Box, Container, Typography } from '@mui/material';
 import widget from '../../assets/Photo.png';
 import { useAppSelector } from '../../hooks';
+import OrderListItem from './OrderListItem';
+
+import mockData from './mockOrders.json';
+
+interface Data {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  price: number;
+  picture: string;
+  rating: number;
+}
+interface Busket {
+  product: Data;
+  quantity: number;
+  createdAt: string;
+}
+
+interface Orders {
+  meta: {
+    count: number;
+    total: number;
+  };
+  data: Busket[][];
+}
+
+const mock: Orders = mockData;
 
 export default function OrderList() {
-  const orders = useAppSelector(state => state.orders);
-  console.log(orders);
+  // const orders = useAppSelector((state) => state.getOrders);
+  // console.log(orders);
   return (
     <div
       style={{
         backgroundColor: '#F2F6FA',
         width: '100%',
-        height: 'calc(100vh - 48px)',
+        // height: 'calc(100vh - 48px)',
+        height: '100%',
         padding: '24px',
       }}
     >
-      <Container
-        style={{
-          maxWidth: '1280px',
-          backgroundColor: '#FFF',
-          borderRadius: '16px',
-        }}
-      >
-        <Box
-          height={'96px'}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          display={'flex'}
-          sx={{
-            maxWidth: '1280px',
-          }}
-        >
-          <Box width={'352px'} display={'flex'} justifyContent={'space-between'}>
-            <Box
-              width={'120px'}
-              height={'48px'}
-              display={'flex'}
-              flexDirection={'column'}
-              justifyContent={'space-around'}
-              alignItems={'start'}
-            >
-              <Typography variant={'secondaryFont'}>Заказ</Typography>
-              <Typography variant={'secondaryFont'} fontSize={'20px'} color={'#172029'}>
-                №344300
-              </Typography>
-            </Box>
-
-            <Box width={'216px'} display={'flex'} alignItems={'center'}>
-              <img src={widget} style={{ width: '48px' }}></img>
-              <img src={widget} style={{ width: '48px' }}></img>
-              <img src={widget} style={{ width: '48px' }}></img>
-              <img src={widget} style={{ width: '48px' }}></img>
-            </Box>
-          </Box>
-
-          <Box width={'252px'} display={'flex'} justifyContent={'space-between'}>
-            <Box
-              width={'94px'}
-              height={'48px'}
-              display={'flex'}
-              flexDirection={'column'}
-              justifyContent={'space-around'}
-              alignItems={'end'}
-            >
-              <Typography variant='secondaryFont'>Оформлено</Typography>
-              <Typography variant='secondaryFont'>На сумму</Typography>
-            </Box>
-            <Box
-              width={'150px'}
-              height={'48px'}
-              display={'flex'}
-              flexDirection={'column'}
-              justifyContent={'space-around'}
-              alignItems={'start'}
-            >
-              <Typography variant='secondaryFont' color={'#172029'}>
-                1 января 2023 г
-              </Typography>
-              <Typography variant='secondaryFont' color={'#172029'}>
-                8 324 ₽
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Container>
+      {mock.data.map((item, index) => {
+        const sum = item.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+        const orderDate = new Date(item[0].createdAt);
+        const formattedDate = orderDate.toLocaleDateString('Ru', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+        return <OrderListItem orderNum={index} sum={sum} created={formattedDate} pictures={item} />;
+      })}
     </div>
   );
 }

@@ -2,7 +2,8 @@ import { Box, Button } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { addToCart, removeFromCart, updateCart } from '../../store/busketSlice';
 import MySnackbar from '../snackbar/MySnackbar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { selectBusketMemoized } from '../../selectors/selectors';
 
 interface GoodType {
   id: string;
@@ -15,11 +16,12 @@ interface GoodType {
 }
 
 export default function Counter({ good }: { good: GoodType }) {
+  console.log('render counter')
   // state for warning snackbar
   const [openOnOver10, setOpenOnOver10] = useState(false);
   const [openOnOverSum, setOpenOnOverSum] = useState(false);
 
-  const busket = useAppSelector((state) => state.busket);
+  const busket = useAppSelector(selectBusketMemoized);
   const dispatch = useAppDispatch();
 
   const itemCount = busket.find((item) => item.product.id === good.id)?.quantity;
@@ -76,13 +78,17 @@ export default function Counter({ good }: { good: GoodType }) {
     }
   }
 
+  // useEffect(() => {
+  //   dispatch(updateCart(busket))
+  // }, [dispatch, itemCount]);
+
   return (
     <>
       <Box
         width={'156px'}
         display={'flex'}
         component={'div'}
-        onMouseLeave={() => dispatch(updateCart(busket))}
+        // onMouseLeave={() => dispatch(updateCart(busket))}
       >
         <Button
           disabled={makeMinusDisable}

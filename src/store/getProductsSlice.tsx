@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
 interface Products {
   meta: {
@@ -56,16 +57,21 @@ const initialState: ProductsState = {
 export const fetchProducts = createAsyncThunk<Products, number, { rejectValue: string }>(
   'products/fetchProducts',
   async function (page, { rejectWithValue }) {
-    const response = await fetch(
-      `https://skillfactory-task.detmir.team/products?page=${page}&limit=15`
-    );
-
-    if (!response.ok) {
-      return rejectWithValue('Server Error!');
+    try {
+      const response = await axios.get(
+        `https://skillfactory-task.detmir.team/products?page=${page}&limit=15`
+      );
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        return axiosError.message;
+      } else if (axiosError.request) {
+        return rejectWithValue('No response from server');
+      } else {
+        return rejectWithValue('Bad request');
+      }
     }
-
-    const data: Products = await response.json();
-    return data;
   }
 );
 

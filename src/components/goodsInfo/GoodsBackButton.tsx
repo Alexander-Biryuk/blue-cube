@@ -2,11 +2,11 @@ import { Box, Typography } from '@mui/material';
 import backArrow from '../../assets/BackArrow.svg';
 import { Link, useParams } from 'react-router-dom';
 import { PAGE } from '../paths/paths';
+import { memo } from 'react';
 
-export default function GoodsBackButton() {
+function GoodsBackButton() {
   const { num } = useParams();
   const page = Number(num);
-
   return (
     <Link to={`${PAGE + page}`}>
       <Box
@@ -25,3 +25,6 @@ export default function GoodsBackButton() {
     </Link>
   );
 }
+
+const MemoizedBackButton = memo(GoodsBackButton);
+export default MemoizedBackButton;

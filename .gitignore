@@ -13,6 +13,9 @@ test.tsx
 dist-ssr
 *.local
 data.json
+mockData.json
+mockOrders.json
+mockOrders2.json
 
 # Editor directories and files
 .vscode/*

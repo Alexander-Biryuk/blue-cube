@@ -5,9 +5,12 @@ import styles from './GoodsInfo.module.scss';
 import Counter from '../busket/Counter';
 import trash from '../../assets/Trash.svg';
 import MySnackbar from '../snackbar/MySnackbar';
-import { useState } from 'react';
-import { submitCart } from '../../store/ordersSlice';
-import { getOrders } from '../../store/ordersSlice';
+import { useEffect, useState } from 'react';
+// import { addToOrderList, submitCart } from '../../store/ordersSlice';
+import { submitCart } from '../../store/submitSlice';
+// import { getOrders } from '../../store/ordersSlice';
+import { getOrders } from '../../store/getOrdersSlice';
+import { selectBusketMemoized } from '../../selectors/selectors';
 
 interface GoodType {
   id: string;
@@ -20,7 +23,7 @@ interface GoodType {
 }
 
 export default function GoodsButton({ good }: { good: GoodType }) {
-  const busket = useAppSelector((state) => state.busket);
+  const busket = useAppSelector(selectBusketMemoized);
   const dispatch = useAppDispatch();
 
   const [openOnOverSum, setOpenOnOverSum] = useState(false); // for snackbar
@@ -37,6 +40,10 @@ export default function GoodsButton({ good }: { good: GoodType }) {
       setOpenOnOverSum(true);
     }
   }
+
+  // useEffect(() => {
+  //   dispatch(updateCart(busket))
+  // }, [dispatch, busket.length])
   //-------------make adding to cart button clickable for showing warning message if sum exceeds------------
   let addToCartButton = {};
   if (newBusketSum <= 10000) {
@@ -83,7 +90,9 @@ export default function GoodsButton({ good }: { good: GoodType }) {
               disableElevation
               color='primary'
               onClick={() => dispatch(submitCart())}
+              // onClick={() => dispatch(addToOrderList(busket))}
               sx={{
+                ml: '8px',
                 backgroundColor: 'primary',
                 textTransform: 'none',
                 color: '#FFF',
@@ -131,7 +140,7 @@ export default function GoodsButton({ good }: { good: GoodType }) {
         )
       ) : (
         <Button
-          onMouseLeave={() => dispatch(updateCart(busket))}
+          // onMouseLeave={() => dispatch(updateCart(busket))}
           // disabled={newBusketSum > 10000}
           variant='contained'
           disableElevation

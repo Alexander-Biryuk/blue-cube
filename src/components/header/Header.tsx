@@ -12,7 +12,7 @@ import { getOrders } from '../../store/ordersSlice';
 export default function Header() {
   const dispatch = useAppDispatch();
   return (
-    <header>
+    <header style={{position: 'sticky', top: 0, zIndex: 100}}>
       <Toolbar
         className={styles.header}
         style={{ minHeight: '48px' }}
@@ -43,7 +43,7 @@ export default function Header() {
 
           <NavLink
             to={ORDERS}
-            onClick={() => dispatch(getOrders(1))}
+            // onClick={() => dispatch(getOrders(1))}
             className={styles.links}
             style={({ isActive }) => {
               return {

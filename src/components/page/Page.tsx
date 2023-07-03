@@ -8,6 +8,7 @@ import { fetchProducts } from '../../store/getProductsSlice';
 import Loader from '../loader/Loader';
 import { getCart } from '../../store/busketSlice';
 import { useParams } from 'react-router-dom';
+import { selectData } from '../../selectors/selectors';
 
 interface PropType {
   products: [
@@ -31,7 +32,8 @@ export default function Page() {
   useEffect(() => {
     dispatch(fetchProducts(page));
   }, [dispatch, page])
-  const products = useAppSelector(state => state.products.products.data);
+  // const products = useAppSelector(state => state.products.products.data);
+  const products = useAppSelector(selectData).data;
 
   return (
     <Grid

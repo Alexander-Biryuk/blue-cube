@@ -1,7 +1,8 @@
 import { Button } from '@mui/material';
 import nextArrow from '../../assets/ForwardArrow.svg';
+import { memo } from 'react';
 
-export default function DirectionButton({ direction }: { direction: string }) {
+function DirectionButton({ direction }: { direction: string }) {
   return (
     <Button
       sx={{
@@ -27,3 +28,5 @@ export default function DirectionButton({ direction }: { direction: string }) {
     </Button>
   );
 }
+const MemoizedButton = memo(DirectionButton);
+export default MemoizedButton;

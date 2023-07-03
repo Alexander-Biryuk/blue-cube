@@ -14,9 +14,10 @@ import GoodsBackButton from './GoodsBackButton';
 import Loader from '../loader/Loader';
 import NotFound from '../404/NotFound';
 import DirectionButton from './DirectionButton';
-import { getCart } from '../../store/busketSlice';
+import { getCart, updateCart } from '../../store/busketSlice';
 import { fetchProducts } from '../../store/getProductsSlice';
 import { DESCRIPTION, PAGE } from '../paths/paths';
+import { selectBusketMemoized, selectData, selectDescriptionIsLoading, selectError, selectGood } from '../../selectors/selectors';
 
 interface GoodType {
   id: string;
@@ -37,10 +38,21 @@ export default function GooodsInfo() {
 
   //---------additional fetching of description data---------------
 
-  const good = useAppSelector((state) => state.description.data);
-  const loading = useAppSelector((state) => state.description.loading);
-  const error = useAppSelector((state) => state.description.error);
-  const data = useAppSelector((state) => state.products.products);
+  // const good = useAppSelector((state) => state.description.data);
+  // const isLoading = useAppSelector((state) => state.description.loading);
+  // const error = useAppSelector((state) => state.description.error);
+  // const data = useAppSelector((state) => state.products.products);
+
+  const good = useAppSelector(selectGood);
+  const isLoading = useAppSelector(selectDescriptionIsLoading);
+  const error = useAppSelector(selectError);
+  const data = useAppSelector(selectData);
+
+  //-------update cart on component render----------------------
+  // const busket = useAppSelector(selectBusketMemoized);
+  // useEffect(() => {
+  //   dispatch(updateCart(busket))
+  // }, [dispatch, busket])
 
   //--------calculate next id and previous id from initial products list-------------
 
@@ -78,9 +90,9 @@ export default function GooodsInfo() {
 
   const htmlContent = good?.description || '';
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   if (error) {
     return <NotFound />;
@@ -112,7 +124,9 @@ export default function GooodsInfo() {
             padding: { xs: '12px', md: '24px' },
           }}
         >
+          {isLoading ? <Loader /> : null}
           <img src={good?.picture} alt='photo' width={'100%'} style={{ maxWidth: '374px' }} />
+        
           <Container style={{ maxWidth: '350px', padding: 0 }}>
             <GoodsName shortName={shortName} />
             <MyRating stars={good?.rating as number} />

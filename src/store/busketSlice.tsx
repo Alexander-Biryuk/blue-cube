@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
 interface Data {
   id: string;
@@ -15,7 +16,19 @@ interface Busket {
   createdAt: string;
 }
 
-const initialState: Busket[] = [];
+interface InitialState {
+  busket: Busket[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+// const initialState: Busket[] = [];
+
+const initialState: InitialState = {
+  busket: [],
+  isLoading: false,
+  error: null,
+};
 
 export const updateCart = createAsyncThunk<Busket[], Busket[], { rejectValue: string }>(
   'busket/updateCart',
@@ -30,34 +43,46 @@ export const updateCart = createAsyncThunk<Busket[], Busket[], { rejectValue: st
           }),
         }
       : [];
-    const response = await fetch('https://skillfactory-task.detmir.team/cart/update', {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(update),
-    });
-    if (!response.ok) {
-      rejectWithValue('Server Error');
-      console.log('asdf')
+    try {
+      const response = await axios({
+        method: 'post',
+        url: 'https://skillfactory-task.detmir.team/cart/update',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(update),
+      });
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        return rejectWithValue(axiosError.message);
+      } else if (axiosError.request) {
+        return rejectWithValue('No response from server');
+      } else {
+        return rejectWithValue('Bad request');
+      }
     }
-    const data = response.json();
-    return data;
   }
 );
 
 export const getCart = createAsyncThunk<Busket[], undefined, { rejectValue: string }>(
   'busket/getCart',
   async function (_, { rejectWithValue }) {
-    const response = await fetch('https://skillfactory-task.detmir.team/cart');
-
-    if (!response.ok) {
-      rejectWithValue('Server Error');
+    try {
+      const response = await axios.get('https://skillfactory-task.detmir.team/cart');
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        return rejectWithValue(axiosError.message);
+      } else if (axiosError.request) {
+        return rejectWithValue('No response from server');
+      } else {
+        return rejectWithValue('Bad request');
+      }
     }
-
-    const data = response.json();
-    return data;
   }
 );
 
@@ -66,41 +91,50 @@ const busketSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<Data>) => {
-      if (state.find((item) => item.product.id === action.payload.id)) {
-        const index = state.findIndex((item) => item.product.id === action.payload.id);
-        state[index].quantity++;
-      } else {
-        state.push({ product: action.payload, quantity: 1, createdAt: '' });
-      }
+      if (!state.error)
+        if (state.busket.find((item) => item.product.id === action.payload.id)) {
+          const index = state.busket.findIndex((item) => item.product.id === action.payload.id);
+          state.busket[index].quantity++;
+        } else {
+          state.busket.push({ product: action.payload, quantity: 1, createdAt: '' });
+        }
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
-      const indexOfRemoveElement = state.findIndex((item) => item.product.id === action.payload);
-      if (state[indexOfRemoveElement].quantity > 0) {
-        state[indexOfRemoveElement].quantity--;
+      const indexOfRemoveElement = state.busket.findIndex(
+        (item) => item.product.id === action.payload
+      );
+      if (state.busket[indexOfRemoveElement].quantity > 0) {
+        state.busket[indexOfRemoveElement].quantity--;
       } else {
-        state.splice(indexOfRemoveElement, 1);
+        state.busket.splice(indexOfRemoveElement, 1);
       }
     },
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(updateCart.pending, () => {
-      //   console.log('created at');
-      // })
-      .addCase(updateCart.fulfilled, (state, action) => {
-        return action.payload;
+      .addCase(updateCart.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateCart.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(updateCart.rejected, (state, action) => {
-        console.log(action.error)
+        state.isLoading = false;
+        console.log(action.error);
       })
-      // .addCase(getCart.pending, () => {
-      //   console.log('get cart pending');
-      // })
-      .addCase(getCart.fulfilled, (state, action) => {
-        return action.payload;
+      .addCase(getCart.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCart.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(getCart.rejected, (state, action) => {
-        console.log(action.error);
+        state.isLoading = false;
+        state.error = action.payload || 'get cart error';
       });
   },
 });

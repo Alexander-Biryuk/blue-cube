@@ -5,7 +5,8 @@ import { removeFromCart, updateCart } from '../../store/busketSlice';
 import trash from '../../assets/Trash.svg';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { DESCRIPTION, PAGE } from '../paths/paths';
-import { submitCart } from '../../store/ordersSlice';
+import { addToOrderList, submitCart } from '../../store/ordersSlice';
+import { selectBusketMemoized } from '../../selectors/selectors';
 
 // adds space in price, i.e. 1000 becomes 1 000
 function numberWithSpaces(n: number) {
@@ -33,12 +34,13 @@ export default function Busket() {
   // console.log(page)
   const dispatch = useAppDispatch();
 
-  const busket = useAppSelector((state) => state.busket);
+  // const busket = useAppSelector((state) => state.busket);
+  const busket = useAppSelector(selectBusketMemoized);
 
   return (
     <Paper
       component={'div'}
-      onMouseLeave={() => dispatch(updateCart(busket))}
+      // onMouseLeave={() => dispatch(updateCart(busket))}
       elevation={16}
       sx={{
         width: '560px',
@@ -136,6 +138,7 @@ export default function Busket() {
       </Box>
       <Button
         onClick={() => dispatch(submitCart())}
+        // onClick={() => dispatch(addToOrderList(busket))}
         variant='contained'
         disableElevation
         color='primary'

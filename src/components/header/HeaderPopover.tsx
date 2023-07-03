@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import styles from './Header.module.scss';
 import cart from '../../assets/Cart.svg';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Busket from '../busket/Busket';
+import { selectBusketMemoized } from '../../selectors/selectors';
+import { updateCart } from '../../store/busketSlice';
 
 export default function HeaderPopover() {
-  const goods = useAppSelector((state) => state.busket);
+  const goods = useAppSelector(selectBusketMemoized);
+  //-----update cart----------
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(updateCart(goods))
+  }, [dispatch, goods])
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {

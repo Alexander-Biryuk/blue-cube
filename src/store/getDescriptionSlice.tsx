@@ -1,6 +1,7 @@
 //-------------this is reducer for additional fetching of product description----------------
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
 interface Description {
   //  data:  {
@@ -37,14 +38,19 @@ const initialState: DescriptionState = {
 export const fetchDescription = createAsyncThunk<Description, number, { rejectValue: string }>(
   'description/fetchDescription',
   async function (id, { rejectWithValue }) {
-    const response = await fetch(`https://skillfactory-task.detmir.team/products/${id}`);
-
-    if (!response.ok) {
-      return rejectWithValue('Server Error!');
+    try {
+      const response = await axios.get(`https://skillfactory-task.detmir.team/products/${id}`);
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        return rejectWithValue(axiosError.message);
+      } else if (axiosError.request) {
+        return rejectWithValue('No response from server');
+      } else {
+        return rejectWithValue('Bad request');
+      }
     }
-
-    const data = response.json();
-    return data;
   }
 );
 
@@ -62,10 +68,9 @@ const getProductsSlice = createSlice({
         state.data = action.payload;
         state.loading = false;
       })
-      .addCase(fetchDescription.rejected, (state) => {
+      .addCase(fetchDescription.rejected, (state, action) => {
         state.loading = false;
-        state.error = 'Error';
-        // console.log('error')
+        state.error = action.payload || 'get product description error';
       });
   },
 });

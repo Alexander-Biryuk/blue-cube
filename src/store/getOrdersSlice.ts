@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import { numberOfOrdersPerPage } from '../components/constants/constants';
 
 interface Data {
   id: string;
@@ -56,10 +57,12 @@ export const getOrders = createAsyncThunk<Orders, number, { rejectValue: string 
     try {
       const response = await axios({
         method: 'get',
-        url: `https://skillfactory-task.detmir.team/orders?page=${page}&limit=10`,
+        timeout: 5000,
+        url: `https://skillfactory-task.detmir.team/orders?page=${page}&limit=${numberOfOrdersPerPage}`,
         headers: {
           Accept: 'application/json',
         },
+        withCredentials: true
       });
       return response.data;
     } catch (error) {
@@ -98,7 +101,8 @@ const getOrdersSlice = createSlice({
       .addCase(getOrders.fulfilled, (state, action) => {
         console.log('payload', action.payload);
         state.orders.meta = action.payload.meta;
-        state.orders.data.push(...action.payload.data);
+        // state.orders.data.push(...action.payload.data);
+        state.orders.data = action.payload.data;
         state.isLoading = false;
         state.error = null;
       })

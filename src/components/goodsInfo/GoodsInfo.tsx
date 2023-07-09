@@ -14,10 +14,10 @@ import GoodsBackButton from './GoodsBackButton';
 import Loader from '../loader/Loader';
 import NotFound from '../404/NotFound';
 import DirectionButton from './DirectionButton';
-import { getCart, updateCart } from '../../store/busketSlice';
+import { getCart } from '../../store/busketSlice';
 import { fetchProducts } from '../../store/getProductsSlice';
-import { DESCRIPTION, PAGE } from '../paths/paths';
-import { selectBusketMemoized, selectData, selectDescriptionIsLoading, selectError, selectGood } from '../../selectors/selectors';
+import { DESCRIPTION, PAGE } from '../constants/constants';
+import { selectProductsData, selectDescriptionIsLoading, selectDescriptionError, selectDescriptionGood } from '../../selectors/selectors';
 
 interface GoodType {
   id: string;
@@ -43,10 +43,10 @@ export default function GooodsInfo() {
   // const error = useAppSelector((state) => state.description.error);
   // const data = useAppSelector((state) => state.products.products);
 
-  const good = useAppSelector(selectGood);
+  const good = useAppSelector(selectDescriptionGood);
   const isLoading = useAppSelector(selectDescriptionIsLoading);
-  const error = useAppSelector(selectError);
-  const data = useAppSelector(selectData);
+  const error = useAppSelector(selectDescriptionError);
+  const data = useAppSelector(selectProductsData);
 
   //-------update cart on component render----------------------
   // const busket = useAppSelector(selectBusketMemoized);
@@ -90,17 +90,13 @@ export default function GooodsInfo() {
 
   const htmlContent = good?.description || '';
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-
   if (error) {
     return <NotFound />;
   }
 
   return (
     <div className={styles.goodsInfo}>
-      <GoodsBackButton />
+      <GoodsBackButton path={`${PAGE + page}`}/>
       <Box
         mx={'auto'}
         maxWidth={'944px'}

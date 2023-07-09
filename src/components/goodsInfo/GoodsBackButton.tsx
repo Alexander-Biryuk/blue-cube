@@ -1,14 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import backArrow from '../../assets/BackArrow.svg';
 import { Link, useParams } from 'react-router-dom';
-import { PAGE } from '../paths/paths';
+import { PAGE } from '../constants/constants';
 import { memo } from 'react';
 
-function GoodsBackButton() {
-  const { num } = useParams();
-  const page = Number(num);
+function GoodsBackButton({path}: {path: string}) {
+  // const { num } = useParams();
+  // const page = Number(num);
   return (
-    <Link to={`${PAGE + page}`}>
+    // <Link to={`${PAGE + page}`}>
+    <Link to={path}>
       <Box
         display={'flex'}
         width={'73px'}

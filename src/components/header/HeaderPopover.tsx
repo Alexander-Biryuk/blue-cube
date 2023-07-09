@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
-import Popover from '@mui/material/Popover';
+import Popover, { PopoverProps } from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import styles from './Header.module.scss';
 import cart from '../../assets/Cart.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Busket from '../busket/Busket';
 import { selectBusketMemoized } from '../../selectors/selectors';
-import { updateCart } from '../../store/busketSlice';
+import { getCart, updateCart } from '../../store/busketSlice';
 
 export default function HeaderPopover() {
   const goods = useAppSelector(selectBusketMemoized);
   //-----update cart----------
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(updateCart(goods))
-  }, [dispatch, goods])
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  // dispatch(updateCart(goods));
+  // console.log('local storage', goods)
+  // localStorage.setItem('cart', JSON.stringify(goods));
+  // dispatch(getCart());
+  // console.log('getCart')
+  // }, [dispatch, goods]);
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,11 +42,16 @@ export default function HeaderPopover() {
       >
         <div className={styles.cart}>
           <img src={cart} alt='cart' />
-          <span>Корзина</span> ({goods?.length})
+          <span>Корзина</span> {goods.length ? `(${goods.length})` : null}
         </div>
       </Typography>
       <Popover
-        sx={{ borderRadius: '16px' }}
+        sx={{
+          borderRadius: '16px',
+          '& .MuiPaper-root': {
+            borderRadius: '24px',
+          },
+        }}
         id='mouse-over-popover'
         open={open}
         anchorEl={anchorEl}

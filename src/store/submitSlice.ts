@@ -36,11 +36,13 @@ export const submitCart = createAsyncThunk<Busket[], undefined, { rejectValue: s
     try {
       const response = await axios({
         method: 'post',
+        timeout: 5000,
         url: 'https://skillfactory-task.detmir.team/cart/submit',
         headers: {
           Accept: 'application/json',
         },
         data: '',
+        withCredentials: true,
       });
       return response.data;
     } catch (error) {

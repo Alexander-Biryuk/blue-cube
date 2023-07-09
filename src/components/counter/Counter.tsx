@@ -16,7 +16,7 @@ interface GoodType {
 }
 
 export default function Counter({ good }: { good: GoodType }) {
-  console.log('render counter')
+  console.log('render counter');
   // state for warning snackbar
   const [openOnOver10, setOpenOnOver10] = useState(false);
   const [openOnOverSum, setOpenOnOverSum] = useState(false);
@@ -64,6 +64,12 @@ export default function Counter({ good }: { good: GoodType }) {
   }
   //---------------------------------------------------------------------------
 
+  // useEffect(() => {
+    // if (itemCount !== undefined && itemCount < 10 && newBusketSum < 10000) {
+      // dispatch(updateCart(busket));
+    // }
+  // }, [dispatch, busket, itemCount, newBusketSum]);
+
   function handlePlus() {
     if (itemCount !== undefined && itemCount < 10 && newBusketSum < 10000) {
       dispatch(addToCart(good));
@@ -76,6 +82,10 @@ export default function Counter({ good }: { good: GoodType }) {
     if (newBusketSum > 10000) {
       setOpenOnOverSum(true);
     }
+  }
+
+  function handleRemove() {
+    dispatch(removeFromCart(good.id));
   }
 
   // useEffect(() => {
@@ -92,7 +102,8 @@ export default function Counter({ good }: { good: GoodType }) {
       >
         <Button
           disabled={makeMinusDisable}
-          onClick={() => dispatch(removeFromCart(good.id))}
+          // onClick={() => dispatch(removeFromCart(good.id))}
+          onClick={handleRemove}
           sx={{
             backgroundColor: '#E6F1FC',
             color: '#0073E6',

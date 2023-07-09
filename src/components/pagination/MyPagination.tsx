@@ -3,16 +3,16 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
-// import BackArrow from '../../assets/BackArrow.svg';
-// import ForwardArrow from '../../assets/ForwardArrow.svg';
+import { PAGE } from '../constants/constants';
 
 interface PropType {
+  link: string;
   numberOfPages: number;
   page: number;
   setPage: (value: React.SetStateAction<number>) => void;
 }
 
-export default function MyPagination({ numberOfPages, page, setPage }: PropType) {
+export default function MyPagination({ link, numberOfPages, page, setPage }: PropType) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
@@ -26,7 +26,7 @@ export default function MyPagination({ numberOfPages, page, setPage }: PropType)
         }}
         color='primary'
         renderItem={(item) => (
-          <PaginationItem component={Link} to={`page/${item.page}`} {...item} />
+          <PaginationItem component={Link} to={`${link + item.page}`} {...item} />
         )}
         size={isMobile ? 'small' : 'large'}
         boundaryCount={isMobile ? 0 : 1}

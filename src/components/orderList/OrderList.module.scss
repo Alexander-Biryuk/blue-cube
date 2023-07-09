@@ -1,62 +1,8 @@
-.order {
-  padding: 24px;
-  max-width: 1280px;
-  height: 96px;
-  background-color: #ffffff;
-  border-radius: 16px;
+.links {
+  width: 100%;
+  text-decoration: none;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.orderNumberAndWidgets {
-  width: 352px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.orderNumber {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  color: #808080;
-}
-
-.number {
-  font-size: 20px;
-  color: #172029;
-}
-
-.widget {
-  width: 48px;
-  height: 48px;
-}
-
-.imagesContainer {
-  width: 224px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.resultContainer {
-  width: 252px;
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 28px;
-  display: flex;
-  justify-content: left;
-  .text {
-    text-align: end;
-    color: #808080;
-  }
-  .dateAndPrice {
-    margin-left: 8px;
-    text-align: start;
-    color: #172029;
-  }
+.links:active {
+  text-decoration: none;
 }

@@ -47,10 +47,12 @@ export const updateCart = createAsyncThunk<Busket[], Busket[], { rejectValue: st
       const response = await axios({
         method: 'post',
         url: 'https://skillfactory-task.detmir.team/cart/update',
+        timeout: 5000,
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
+        withCredentials: true,
         data: JSON.stringify(update),
       });
       return response.data;
@@ -71,7 +73,10 @@ export const getCart = createAsyncThunk<Busket[], undefined, { rejectValue: stri
   'busket/getCart',
   async function (_, { rejectWithValue }) {
     try {
-      const response = await axios.get('https://skillfactory-task.detmir.team/cart');
+      const response = await axios.get('https://skillfactory-task.detmir.team/cart', {
+        timeout: 5000,
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -122,13 +127,14 @@ const busketSlice = createSlice({
       })
       .addCase(updateCart.rejected, (state, action) => {
         state.isLoading = false;
-        console.log(action.error);
+        state.error = action.payload || 'Update error';
       })
       .addCase(getCart.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getCart.fulfilled, (state) => {
+      .addCase(getCart.fulfilled, (state, action) => {
+        state.busket = action.payload;
         state.isLoading = false;
         state.error = null;
       })

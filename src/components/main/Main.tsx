@@ -6,9 +6,15 @@ import { useState } from 'react';
 // import { fetchProducts } from '../../store/getProductsSlice';
 import Loader from '../loader/Loader';
 // import { getCart } from '../../store/busketSlice';
-import Page from '../page/Page';
+import Page from './Page';
 import { useParams } from 'react-router-dom';
-import { selectData, selectProductsIsLoading } from '../../selectors/selectors';
+import {
+  selectProductsData,
+  selectProductsError,
+  selectProductsIsLoading,
+} from '../../selectors/selectors';
+import MySnackbar from '../snackbar/MySnackbar';
+import { PAGE, numberOfProductsPerPage } from '../constants/constants';
 
 export default function Main() {
   const { num } = useParams();
@@ -44,8 +50,9 @@ export default function Main() {
   // const numberOfProducts = useAppSelector((state) => state.products.products.meta.total);
 
   const isLoading = useAppSelector(selectProductsIsLoading);
-  const numberOfProducts = useAppSelector(selectData).meta.total;
-  const numberOfPages = Math.ceil(numberOfProducts / 15);
+  const fetchError = useAppSelector(selectProductsError);
+  const numberOfProducts = useAppSelector(selectProductsData).meta.total;
+  const numberOfPages = Math.ceil(numberOfProducts / numberOfProductsPerPage);
   // console.log(numberOfPages);
 
   //-------------infinite scroll----------------------------
@@ -89,6 +96,8 @@ export default function Main() {
   //   return <Loader />
   // }
 
+  const [openSnackBar, setOpenSnackBar] = useState(true);
+
   return (
     <div className={styles.main}>
       <Box
@@ -100,11 +109,13 @@ export default function Main() {
         px={'24px'}
         flexGrow={1}
       >
-        {isLoading ? <Loader /> : null}
+        {isLoading && !fetchError ? <Loader /> : null}
+        {fetchError ? (
+          <MySnackbar open={openSnackBar} setOpen={setOpenSnackBar} message='Сервер не отвечает' />
+        ) : null}
         <Page />
-        <MyPagination numberOfPages={numberOfPages} page={page} setPage={setPage} />
+        <MyPagination link={PAGE} numberOfPages={numberOfPages} page={page} setPage={setPage} />
       </Box>
     </div>
   );
 }
-

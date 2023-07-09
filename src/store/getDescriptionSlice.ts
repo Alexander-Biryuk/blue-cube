@@ -39,7 +39,10 @@ export const fetchDescription = createAsyncThunk<Description, number, { rejectVa
   'description/fetchDescription',
   async function (id, { rejectWithValue }) {
     try {
-      const response = await axios.get(`https://skillfactory-task.detmir.team/products/${id}`);
+      const response = await axios.get(`https://skillfactory-task.detmir.team/products/${id}`, {
+        timeout: 5000,
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;

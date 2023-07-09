@@ -1,28 +1,28 @@
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import GoodsCard from '../card/GoodsCard';
-import styles from './Main.module.scss';
-import MyPagination from '../pagination/MyPagination';
+// import styles from './Main.module.scss';
+// import MyPagination from '../pagination/MyPagination';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchProducts } from '../../store/getProductsSlice';
-import Loader from '../loader/Loader';
-import { getCart } from '../../store/busketSlice';
+// import Loader from '../loader/Loader';
+// import { getCart } from '../../store/busketSlice';
 import { useParams } from 'react-router-dom';
-import { selectData } from '../../selectors/selectors';
+import { selectProductsData } from '../../selectors/selectors';
 
-interface PropType {
-  products: [
-    {
-      id: string;
-      category: string;
-      title: string;
-      description: string;
-      price: number;
-      picture: string;
-      rating: number;
-    }
-  ];
-}
+// interface PropType {
+//   products: [
+//     {
+//       id: string;
+//       category: string;
+//       title: string;
+//       description: string;
+//       price: number;
+//       picture: string;
+//       rating: number;
+//     }
+//   ];
+// }
 
 export default function Page() {
   const { num } = useParams();
@@ -33,7 +33,7 @@ export default function Page() {
     dispatch(fetchProducts(page));
   }, [dispatch, page])
   // const products = useAppSelector(state => state.products.products.data);
-  const products = useAppSelector(selectData).data;
+  const products = useAppSelector(selectProductsData).data;
 
   return (
     <Grid

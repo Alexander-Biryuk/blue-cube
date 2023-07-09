@@ -5,9 +5,9 @@ import cube from '../../assets/Cube.svg';
 
 import styles from './Header.module.scss';
 import HeaderPopover from './HeaderPopover';
-import { HOME, ORDERS, PAGE } from '../paths/paths';
+import { HOME, ORDERS, PAGE } from '../constants/constants';
 import { useAppDispatch } from '../../hooks';
-import { getOrders } from '../../store/ordersSlice';
+import { getOrders } from '../../store/getOrdersSlice';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -42,7 +42,7 @@ export default function Header() {
           </NavLink>
 
           <NavLink
-            to={ORDERS}
+            to={ORDERS + 1}
             // onClick={() => dispatch(getOrders(1))}
             className={styles.links}
             style={({ isActive }) => {

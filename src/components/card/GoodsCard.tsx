@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import MyRating from '../rating/MyRating';
 import CardName from './CardName';
 import CardPrice from './CardPrice';
-import { DESCRIPTION, PAGE } from '../paths/paths';
+import { DESCRIPTION, PAGE } from '../constants/constants';
 
 interface PropType {
   id: string;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import { numberOfProductsPerPage } from '../components/constants/constants';
 
 interface Products {
   meta: {
@@ -59,7 +60,8 @@ export const fetchProducts = createAsyncThunk<Products, number, { rejectValue: s
   async function (page, { rejectWithValue }) {
     try {
       const response = await axios.get(
-        `https://skillfactory-task.detmir.team/products?page=${page}&limit=15`
+        `https://skillfactory-task.detmir.team/products?page=${page}&limit=${numberOfProductsPerPage}`,
+        { timeout: 5000, withCredentials: true }
       );
       return response.data;
     } catch (error) {

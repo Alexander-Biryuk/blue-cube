@@ -3,45 +3,28 @@ import GooodsInfo from './components/goodsInfo/GoodsInfo';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 import Page from './components/main/Page';
-// import OrderList from './components/orderList/OrderList';
 import OrderList2 from './components/orderList/OrderList';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './components/404/NotFound';
-import { useAppDispatch, useAppSelector } from './hooks';
+import { useAppDispatch } from './hooks';
 import { useEffect } from 'react';
-import { getCart, updateCart } from './store/busketSlice';
-import { HOME, PAGE, DESCRIPTION, ORDERS, ORDER_DETAILS, NOT_FOUND } from './components/constants/constants';
-import { selectBusketMemoized } from './selectors/selectors';
+import { getCart } from './store/busketSlice';
+import {
+  HOME,
+  PAGE,
+  DESCRIPTION,
+  ORDERS,
+  ORDER_DETAILS,
+  NOT_FOUND,
+} from './components/constants/constants';
 import OrderDetails from './components/orderList/OrderDetails';
-// import { fetchProducts } from './store/getProductsSlice';
 
 function App() {
-  // let currentPage = Number(sessionStorage.getItem('page'))
-  //   ? Number(sessionStorage.getItem('page'))
-  //   : 1;
-  // if (!currentPage) currentPage = 1;
-
-  // const [page, setPage] = useState(currentPage);
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts(currentPage));
-  // }, [dispatch, currentPage]);
-  // const products = useAppSelector((state) => state.products.products.data);
-  // const savedCart = localStorage.getItem('cart');
-  // if (savedCart) {
-  //   const cartData = JSON.parse(savedCart);
-  //   dispatch(updateCart(cartData));
-  // }
-  const busket = useAppSelector(selectBusketMemoized);
 
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(updateCart(busket));
-  // }, [dispatch, busket]);
 
   return (
     <BrowserRouter>

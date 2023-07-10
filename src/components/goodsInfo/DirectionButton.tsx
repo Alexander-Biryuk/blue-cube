@@ -1,3 +1,4 @@
+// direction button on the left and on the right side of the description page
 import { Button } from '@mui/material';
 import nextArrow from '../../assets/ForwardArrow.svg';
 import { memo } from 'react';

@@ -2,21 +2,10 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-
-interface Description {
-  //  data:  {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-  // }
-}
+import type { GoodType } from '../types';
 
 interface DescriptionState {
-  data: Description;
+  data: GoodType;
   loading: boolean;
   error: string | null;
 }
@@ -35,7 +24,7 @@ const initialState: DescriptionState = {
   error: null,
 };
 
-export const fetchDescription = createAsyncThunk<Description, number, { rejectValue: string }>(
+export const fetchDescription = createAsyncThunk<GoodType, number, { rejectValue: string }>(
   'description/fetchDescription',
   async function (id, { rejectWithValue }) {
     try {

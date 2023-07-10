@@ -5,14 +5,11 @@ import cube from '../../assets/Cube.svg';
 
 import styles from './Header.module.scss';
 import HeaderPopover from './HeaderPopover';
-import { HOME, ORDERS, PAGE } from '../constants/constants';
-import { useAppDispatch } from '../../hooks';
-import { getOrders } from '../../store/getOrdersSlice';
+import { ORDERS, PAGE } from '../constants/constants';
 
 export default function Header() {
-  const dispatch = useAppDispatch();
   return (
-    <header style={{position: 'sticky', top: 0, zIndex: 100}}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 100 }}>
       <Toolbar
         className={styles.header}
         style={{ minHeight: '48px' }}
@@ -26,7 +23,6 @@ export default function Header() {
         <img src={cube} alt='logo' className={styles.shortLogo} />
         <div className={styles.menuItems}>
           <NavLink
-            // to='page/1'
             to={PAGE + '1'}
             className={styles.links}
             style={({ isActive }) => {
@@ -43,7 +39,6 @@ export default function Header() {
 
           <NavLink
             to={ORDERS + 1}
-            // onClick={() => dispatch(getOrders(1))}
             className={styles.links}
             style={({ isActive }) => {
               return {
@@ -57,7 +52,6 @@ export default function Header() {
             Заказы
           </NavLink>
         </div>
-
         <HeaderPopover />
       </Toolbar>
     </header>

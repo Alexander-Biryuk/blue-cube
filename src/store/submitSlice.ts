@@ -1,34 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-
-interface Data {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
-interface Busket {
-  product: Data;
-  quantity: number;
-  createdAt: string;
-}
+import type { Busket } from '../types';
 
 interface InitialState {
-  // orders: Busket[],
-  submitting: boolean,
-  error: string | null
+  submitting: boolean;
+  error: string | null;
 }
 
 const initialState: InitialState = {
-  // orders: [],
   submitting: false,
-  error: null
-}
-// const initialState: Busket[] = [];
-
+  error: null,
+};
 
 export const submitCart = createAsyncThunk<Busket[], undefined, { rejectValue: string }>(
   'orders/submitCart',
@@ -61,35 +43,22 @@ export const submitCart = createAsyncThunk<Busket[], undefined, { rejectValue: s
 const submitSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {
-    // addToOrderList: (state, action) => {
-    //   state.data.push(action.payload);
-    //   state.meta.count++;
-    //   // state.meta.total++;
-    // },
-    // getOrdersList: (state) => {
-    //   return state;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(submitCart.pending, (state, action) => {
+      .addCase(submitCart.pending, (state) => {
         state.submitting = true;
         state.error = null;
-        console.log(action.payload);
       })
-      .addCase(submitCart.fulfilled, (state, action) => {
+      .addCase(submitCart.fulfilled, (state) => {
         state.submitting = false;
         state.error = null;
-        console.log(action.payload);
       })
       .addCase(submitCart.rejected, (state, action) => {
         state.submitting = false;
         state.error = action.payload || 'submit error';
-        console.log(action.payload);
       });
   },
 });
 
-// export const { addToOrderList, getOrdersList } = ordersSlice.actions;
 export default submitSlice.reducer;

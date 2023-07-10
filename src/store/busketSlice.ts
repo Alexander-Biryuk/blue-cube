@@ -1,28 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-
-interface Data {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
-interface Busket {
-  product: Data;
-  quantity: number;
-  createdAt: string;
-}
+import type { GoodType, Busket } from '../types';
 
 interface InitialState {
   busket: Busket[];
   isLoading: boolean;
   error: string | null;
 }
-
-// const initialState: Busket[] = [];
 
 const initialState: InitialState = {
   busket: [],
@@ -95,7 +79,7 @@ const busketSlice = createSlice({
   name: 'busket',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Data>) => {
+    addToCart: (state, action: PayloadAction<GoodType>) => {
       if (!state.error)
         if (state.busket.find((item) => item.product.id === action.payload.id)) {
           const index = state.busket.findIndex((item) => item.product.id === action.payload.id);

@@ -3,9 +3,7 @@ import styles from './Main.module.scss';
 import MyPagination from '../pagination/MyPagination';
 import { useAppSelector } from '../../hooks';
 import { useState } from 'react';
-// import { fetchProducts } from '../../store/getProductsSlice';
 import Loader from '../loader/Loader';
-// import { getCart } from '../../store/busketSlice';
 import Page from './Page';
 import { useParams } from 'react-router-dom';
 import {
@@ -18,42 +16,13 @@ import { PAGE, numberOfProductsPerPage } from '../constants/constants';
 
 export default function Main() {
   const { num } = useParams();
-  // const page = Number(id);
-  // let currentPage = Number(sessionStorage.getItem('page'))
-  //   ? Number(sessionStorage.getItem('page'))
-  //   : 1;
-  // if (!currentPage) currentPage = 1;
 
   const [page, setPage] = useState(Number(num) || 1);
-
-  // let store = sessionStorage.getItem('store');
-  // console.log(JSON.parse(store));
-
-  //-----------trying to restore scroll position----------------
-
-  // const scrollpos = sessionStorage.getItem("scrollpos");
-  //   if (scrollpos) window.scrollTo(0, +scrollpos);
-  // console.log('scrollpos', scrollpos)
-  //-------------------------------------------
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts(page));
-  // }, [dispatch, page]);
-
-  // useEffect(() => {
-  //   dispatch(getCart());
-  // },[dispatch])
-
-  // const products = useAppSelector((state) => state.products.products.data);
-
-  // const isLoading = useAppSelector((state) => state.products.loading);
-  // const numberOfProducts = useAppSelector((state) => state.products.products.meta.total);
 
   const isLoading = useAppSelector(selectProductsIsLoading);
   const fetchError = useAppSelector(selectProductsError);
   const numberOfProducts = useAppSelector(selectProductsData).meta.total;
   const numberOfPages = Math.ceil(numberOfProducts / numberOfProductsPerPage);
-  // console.log(numberOfPages);
 
   //-------------infinite scroll----------------------------
 
@@ -91,10 +60,6 @@ export default function Main() {
   //   // console.log('innerHeight', window.innerHeight);
   // };
   //--------------------- end of infinite scroll code----------------------------
-
-  // if (loading) {
-  //   return <Loader />
-  // }
 
   const [openSnackBar, setOpenSnackBar] = useState(true);
 

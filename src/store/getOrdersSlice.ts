@@ -1,21 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { numberOfOrdersPerPage } from '../components/constants/constants';
-
-interface Data {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
-interface Busket {
-  product: Data;
-  quantity: number;
-  createdAt: string;
-}
+import type { Busket } from '../types';
 
 interface Orders {
   meta: {
@@ -24,20 +10,11 @@ interface Orders {
   };
   data: Busket[][];
 }
-
 interface InitialState {
   orders: Orders;
   isLoading: boolean;
   error: string | null;
 }
-
-// const initialState: Orders = {
-//   meta: {
-//     count: 0,
-//     total: 0,
-//   },
-//   data: [],
-// };
 
 const initialState: InitialState = {
   orders: {
@@ -62,7 +39,7 @@ export const getOrders = createAsyncThunk<Orders, number, { rejectValue: string 
         headers: {
           Accept: 'application/json',
         },
-        withCredentials: true
+        withCredentials: true,
       });
       return response.data;
     } catch (error) {
@@ -81,38 +58,24 @@ export const getOrders = createAsyncThunk<Orders, number, { rejectValue: string 
 const getOrdersSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {
-    // addToOrderList: (state, action) => {
-    //   state.data.push(action.payload);
-    //   state.meta.count++;
-    //   // state.meta.total++;
-    // },
-    // getOrdersList: (state) => {
-    //   return state;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getOrders.pending, (state, action) => {
+      .addCase(getOrders.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        console.log(action.payload);
       })
       .addCase(getOrders.fulfilled, (state, action) => {
-        console.log('payload', action.payload);
         state.orders.meta = action.payload.meta;
-        // state.orders.data.push(...action.payload.data);
         state.orders.data = action.payload.data;
         state.isLoading = false;
         state.error = null;
       })
       .addCase(getOrders.rejected, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.error = action.payload || 'get orders error ';
       });
   },
 });
 
-// export const { addToOrderList, getOrdersList } = ordersSlice.actions;
 export default getOrdersSlice.reducer;

@@ -1,14 +1,11 @@
+// little back button on top-left of the description page
 import { Box, Typography } from '@mui/material';
 import backArrow from '../../assets/BackArrow.svg';
-import { Link, useParams } from 'react-router-dom';
-import { PAGE } from '../constants/constants';
+import { Link } from 'react-router-dom';
 import { memo } from 'react';
 
-function GoodsBackButton({path}: {path: string}) {
-  // const { num } = useParams();
-  // const page = Number(num);
+function GoodsBackButton({ path }: { path: string }) {
   return (
-    // <Link to={`${PAGE + page}`}>
     <Link to={path}>
       <Box
         display={'flex'}

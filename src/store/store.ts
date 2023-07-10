@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import getProductsReducer from './getProductsSlice';
 import busketReducer from './busketSlice';
 import getDescriptionReducer from './getDescriptionSlice';
-// import ordersReducer from './ordersSlice';
 import submitReducer from './submitSlice';
 import getOrdersReducer from './getOrdersSlice';
 
@@ -12,7 +11,6 @@ const store = configureStore({
     busket: busketReducer,
     submit: submitReducer,
     getOrders: getOrdersReducer,
-    // orders: ordersReducer,
     description: getDescriptionReducer,
   },
 });

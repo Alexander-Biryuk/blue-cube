@@ -1,3 +1,4 @@
+// base busket component using in popover busket and order detail busket
 import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import Counter from '../counter/Counter';
 import { useAppDispatch } from '../../hooks';
@@ -6,6 +7,7 @@ import trash from '../../assets/Trash.svg';
 import { Link } from 'react-router-dom';
 import { DESCRIPTION, PAGE } from '../constants/constants';
 import EmptyBusket from './EmptyBusket';
+import type { Busket } from '../../types';
 
 // adds space in price, i.e. 1000 becomes 1 000
 function numberWithSpaces(n: number) {
@@ -25,20 +27,6 @@ function shortName(name: string) {
     return short;
   }
 }
-interface Data {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
-interface Busket {
-  product: Data;
-  quantity: number;
-  createdAt: string;
-}
 
 type PropType = {
   regexp: RegExp;
@@ -49,8 +37,8 @@ type PropType = {
 };
 
 export default function BusketBase({ regexp, data, counter, handleButton, buttonText }: PropType) {
+  // get url params
   const currentUrl = window.location.href;
-  // const match = currentUrl.match(/page\/(\d+)/);
   const match = currentUrl.match(regexp);
   const page = match && match[1];
 

@@ -10,7 +10,6 @@ export default function GoodsName({ shortName }: { shortName: string }) {
         fontSize: '28px',
       }}
     >
-      {/* Куртка Lassie */}
       {shortName}
     </Typography>
   );

@@ -14,7 +14,6 @@ export default function GoodsPrice({ price }: { price: number }) {
         mt: '20px',
       }}
     >
-      {/* 6 199 ₽ */}
       {numberWithSpaces(price)} ₽
     </Typography>
   );

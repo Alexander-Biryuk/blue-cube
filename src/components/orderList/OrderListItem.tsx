@@ -1,23 +1,5 @@
 import { Box, Container, Typography } from '@mui/material';
-// import widget from '../../assets/Photo.png';
-// import { useAppSelector } from '../../hooks';
-// import { Link } from 'react-router-dom';
-// import { PAGE } from '../paths/paths';
-
-interface Data {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
-interface Busket {
-  product: Data;
-  quantity: number;
-  createdAt: string;
-}
+import type { Busket } from '../../types';
 
 type PropType = {
   orderNum: number;
@@ -27,8 +9,6 @@ type PropType = {
 };
 
 export default function OrderListItem({ orderNum, created, sum, pictures }: PropType) {
-  // const orders = useAppSelector(state => state.getOrders);
-  // console.log(orders);
   return (
     <Container
       style={{
@@ -39,7 +19,7 @@ export default function OrderListItem({ orderNum, created, sum, pictures }: Prop
       }}
     >
       <Box
-        height={{xs: 'auto', sm: '96px'}}
+        height={{ xs: 'auto', sm: '96px' }}
         padding={'24px'}
         justifyContent={'space-between'}
         alignItems={'center'}
@@ -47,13 +27,9 @@ export default function OrderListItem({ orderNum, created, sum, pictures }: Prop
         sx={{
           maxWidth: '1280px',
         }}
-        flexDirection={{xs: 'column', sm: 'row'}}
+        flexDirection={{ xs: 'column', sm: 'row' }}
       >
-        <Box
-          display={'flex'}
-          justifyContent={'space-between'}
-          // flexDirection={{ xs: 'column', md: 'row' }}
-        >
+        <Box display={'flex'} justifyContent={'space-between'}>
           <Box
             width={'120px'}
             height={'48px'}
@@ -64,7 +40,6 @@ export default function OrderListItem({ orderNum, created, sum, pictures }: Prop
           >
             <Typography variant={'secondaryFont'}>Заказ</Typography>
             <Typography variant={'secondaryFont'} fontSize={'20px'} color={'#172029'}>
-              {/* №344300 */}
               №{orderNum}
             </Typography>
           </Box>
@@ -78,13 +53,11 @@ export default function OrderListItem({ orderNum, created, sum, pictures }: Prop
             overflow={'hidden'}
           >
             {pictures.map((item) => (
-              // <Link to={`${PAGE + }`}>
               <img
                 key={item.product.id}
                 src={item.product.picture}
                 style={{ width: '48px', marginRight: '8px' }}
               />
-              // </Link>
             ))}
           </Box>
         </Box>
@@ -110,11 +83,9 @@ export default function OrderListItem({ orderNum, created, sum, pictures }: Prop
             alignItems={'start'}
           >
             <Typography variant='secondaryFont' color={'#172029'}>
-              {/* 1 января 2023 г */}
               {created}
             </Typography>
             <Typography variant='secondaryFont' color={'#172029'}>
-              {/* 8 324 ₽ */}
               {sum}
             </Typography>
           </Box>

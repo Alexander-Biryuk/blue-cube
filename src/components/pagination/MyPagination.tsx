@@ -3,8 +3,6 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
-import { PAGE } from '../constants/constants';
-
 interface PropType {
   link: string;
   numberOfPages: number;

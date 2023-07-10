@@ -1,3 +1,4 @@
+// detailed product description
 import { Typography, Container } from '@mui/material';
 import parse from 'html-react-parser';
 

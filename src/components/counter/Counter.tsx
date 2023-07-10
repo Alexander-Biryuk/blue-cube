@@ -1,22 +1,12 @@
 import { Box, Button } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { addToCart, removeFromCart, updateCart } from '../../store/busketSlice';
+import { addToCart, removeFromCart } from '../../store/busketSlice';
 import MySnackbar from '../snackbar/MySnackbar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { selectBusketMemoized } from '../../selectors/selectors';
-
-interface GoodType {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
+import type { GoodType } from '../../types';
 
 export default function Counter({ good }: { good: GoodType }) {
-  console.log('render counter');
   // state for warning snackbar
   const [openOnOver10, setOpenOnOver10] = useState(false);
   const [openOnOverSum, setOpenOnOverSum] = useState(false);
@@ -24,6 +14,7 @@ export default function Counter({ good }: { good: GoodType }) {
   const busket = useAppSelector(selectBusketMemoized);
   const dispatch = useAppDispatch();
 
+  // calculate values for restrictions < 10 products in cart and order sum < 10000
   const itemCount = busket.find((item) => item.product.id === good.id)?.quantity;
   const newBusketSum =
     busket.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0) + good.price;
@@ -64,12 +55,7 @@ export default function Counter({ good }: { good: GoodType }) {
   }
   //---------------------------------------------------------------------------
 
-  // useEffect(() => {
-    // if (itemCount !== undefined && itemCount < 10 && newBusketSum < 10000) {
-      // dispatch(updateCart(busket));
-    // }
-  // }, [dispatch, busket, itemCount, newBusketSum]);
-
+  // restrictions for no more than 10 products in cart and order sum < 10000
   function handlePlus() {
     if (itemCount !== undefined && itemCount < 10 && newBusketSum < 10000) {
       dispatch(addToCart(good));
@@ -88,21 +74,11 @@ export default function Counter({ good }: { good: GoodType }) {
     dispatch(removeFromCart(good.id));
   }
 
-  // useEffect(() => {
-  //   dispatch(updateCart(busket))
-  // }, [dispatch, itemCount]);
-
   return (
     <>
-      <Box
-        width={'156px'}
-        display={'flex'}
-        component={'div'}
-        // onMouseLeave={() => dispatch(updateCart(busket))}
-      >
+      <Box width={'156px'} display={'flex'} component={'div'}>
         <Button
           disabled={makeMinusDisable}
-          // onClick={() => dispatch(removeFromCart(good.id))}
           onClick={handleRemove}
           sx={{
             backgroundColor: '#E6F1FC',

@@ -47,13 +47,6 @@ const initialState: ProductsState = {
   loading: false,
   error: null,
 };
-//------------------get state from ssessionStirage (for restore scroll position)--------------------
-// const storedState = sessionStorage.getItem('store');
-// if (storedState) {
-//   // initialState = JSON.parse(storedState)
-//   console.log(JSON.parse(storedState));
-// }
-//-------------------------------------------------------------------
 
 export const fetchProducts = createAsyncThunk<Products, number, { rejectValue: string }>(
   'products/fetchProducts',
@@ -80,9 +73,7 @@ export const fetchProducts = createAsyncThunk<Products, number, { rejectValue: s
 const getProductsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {
-    // getProducts(state, action) {},
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -113,5 +104,4 @@ const getProductsSlice = createSlice({
   },
 });
 
-// export const { getProducts } = getProductsSlice.actions;
 export default getProductsSlice.reducer;

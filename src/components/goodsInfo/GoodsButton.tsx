@@ -6,21 +6,9 @@ import Counter from '../counter/Counter';
 import trash from '../../assets/Trash.svg';
 import MySnackbar from '../snackbar/MySnackbar';
 import { useState, useEffect } from 'react';
-// import { addToOrderList, submitCart } from '../../store/ordersSlice';
 import { submitCart } from '../../store/submitSlice';
-// import { getOrders } from '../../store/ordersSlice';
-import { getOrders } from '../../store/getOrdersSlice';
 import { selectBusketMemoized } from '../../selectors/selectors';
-
-interface GoodType {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
+import type { GoodType } from '../../types';
 
 export default function GoodsButton({ good }: { good: GoodType }) {
   const busket = useAppSelector(selectBusketMemoized);
@@ -42,35 +30,19 @@ export default function GoodsButton({ good }: { good: GoodType }) {
     }
   }
 
-  // useEffect(() => {
-  //   dispatch(getCart())
-  // }, [dispatch])
-
-  // const busket = useAppSelector((state) => state.busket);
-  // const busket = useAppSelector(selectBusketMemoized);
-
   useEffect(() => {
     dispatch(updateCart(busket));
   }, [dispatch, busket]);
 
-  
   let submitMessage = 'Заказ оформлен';
   function handleSubmit() {
-    // async function submit() {
-      dispatch(submitCart());
-      dispatch(getCart());
-      setOpenOnSuccessSubmit(true);
-      console.log('submit error', submitError);
-      // }
-      // submit()
-    }
-    const submitError = useAppSelector((state) => state.submit.error);
-    if (submitError) submitMessage = 'Ошибка сервера';
-    console.log('submit message', submitMessage)
-    
-  // useEffect(() => {
-  //   dispatch(updateCart(busket))
-  // }, [dispatch, busket.length])
+    dispatch(submitCart());
+    dispatch(getCart());
+    setOpenOnSuccessSubmit(true);
+  }
+  const submitError = useAppSelector((state) => state.submit.error);
+  if (submitError) submitMessage = 'Ошибка сервера';
+
   //-------------make adding to cart button clickable for showing warning message if sum exceeds------------
   let addToCartButton = {};
   if (newBusketSum <= 10000) {
@@ -116,9 +88,7 @@ export default function GoodsButton({ good }: { good: GoodType }) {
               variant='contained'
               disableElevation
               color='primary'
-              // onClick={() => dispatch(submitCart())}
               onClick={handleSubmit}
-              // onClick={() => dispatch(addToOrderList(busket))}
               sx={{
                 ml: '8px',
                 backgroundColor: 'primary',
@@ -137,7 +107,6 @@ export default function GoodsButton({ good }: { good: GoodType }) {
             >
               Оформить заказ
             </Button>
-            {/* <button onClick={() => dispatch(getOrders(1))}>get Orders</button> */}
           </div>
         ) : (
           <div className={styles.buttonContainer}>
@@ -168,8 +137,6 @@ export default function GoodsButton({ good }: { good: GoodType }) {
         )
       ) : (
         <Button
-          // onMouseLeave={() => dispatch(updateCart(busket))}
-          // disabled={newBusketSum > 10000}
           variant='contained'
           disableElevation
           color='primary'
@@ -184,13 +151,11 @@ export default function GoodsButton({ good }: { good: GoodType }) {
         setOpen={setOpenOnOverSum}
         message='Сумма заказа не может превышать 10 000р :('
       />
-      {/* {submitError ? ( */}
-        <MySnackbar
-          open={openOnSuccessSubmit}
-          setOpen={setOpenOnSuccessSubmit}
-          message={submitMessage}
-        />
-      {/* ) : null} */}
+      <MySnackbar
+        open={openOnSuccessSubmit}
+        setOpen={setOpenOnSuccessSubmit}
+        message={submitMessage}
+      />
     </>
   );
 }

@@ -1,3 +1,4 @@
+// main description page component with all buttons
 import { Container, Box } from '@mui/material';
 import styles from './GoodsInfo.module.scss';
 import MyRating from '../rating/MyRating';
@@ -17,17 +18,13 @@ import DirectionButton from './DirectionButton';
 import { getCart } from '../../store/busketSlice';
 import { fetchProducts } from '../../store/getProductsSlice';
 import { DESCRIPTION, PAGE } from '../constants/constants';
-import { selectProductsData, selectDescriptionIsLoading, selectDescriptionError, selectDescriptionGood } from '../../selectors/selectors';
-
-interface GoodType {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  picture: string;
-  rating: number;
-}
+import {
+  selectProductsData,
+  selectDescriptionIsLoading,
+  selectDescriptionError,
+  selectDescriptionGood,
+} from '../../selectors/selectors';
+import type { GoodType } from '../../types';
 
 export default function GooodsInfo() {
   const dispatch = useAppDispatch();
@@ -36,23 +33,10 @@ export default function GooodsInfo() {
   const page = Number(num);
   const numberId = Number(id);
 
-  //---------additional fetching of description data---------------
-
-  // const good = useAppSelector((state) => state.description.data);
-  // const isLoading = useAppSelector((state) => state.description.loading);
-  // const error = useAppSelector((state) => state.description.error);
-  // const data = useAppSelector((state) => state.products.products);
-
   const good = useAppSelector(selectDescriptionGood);
   const isLoading = useAppSelector(selectDescriptionIsLoading);
   const error = useAppSelector(selectDescriptionError);
   const data = useAppSelector(selectProductsData);
-
-  //-------update cart on component render----------------------
-  // const busket = useAppSelector(selectBusketMemoized);
-  // useEffect(() => {
-  //   dispatch(updateCart(busket))
-  // }, [dispatch, busket])
 
   //--------calculate next id and previous id from initial products list-------------
 
@@ -96,7 +80,7 @@ export default function GooodsInfo() {
 
   return (
     <div className={styles.goodsInfo}>
-      <GoodsBackButton path={`${PAGE + page}`}/>
+      <GoodsBackButton path={`${PAGE + page}`} />
       <Box
         mx={'auto'}
         maxWidth={'944px'}
@@ -122,7 +106,7 @@ export default function GooodsInfo() {
         >
           {isLoading ? <Loader /> : null}
           <img src={good?.picture} alt='photo' width={'100%'} style={{ maxWidth: '374px' }} />
-        
+
           <Container style={{ maxWidth: '350px', padding: 0 }}>
             <GoodsName shortName={shortName} />
             <MyRating stars={good?.rating as number} />

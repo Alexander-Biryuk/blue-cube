@@ -1,20 +1,15 @@
-import {Box} from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { Box } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { selectOrdersMemoized } from '../../selectors/selectors';
 import OrderBusket from './OrderBusket';
 
 export default function OrderDetails() {
-  const {num, index} = useParams();
-  console.log(num, index)
-  const page = Number(num);
-  // const busketIndex = Number(index) - 1;
+  const { index } = useParams();
 
   const orders = useAppSelector(selectOrdersMemoized);
-  // const busketIndex = orders.data.length - Number(index) - 1;
   const busketIndex = Number(index);
   const busket = orders.data[busketIndex];
-  console.log(busket);
 
   return (
     <Box
@@ -28,7 +23,7 @@ export default function OrderDetails() {
       padding={'24px'}
       bgcolor={'#F2F6FA'}
     >
-      <OrderBusket busket={busket}/>
+      <OrderBusket busket={busket} />
     </Box>
-  )
+  );
 }

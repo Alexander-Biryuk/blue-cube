@@ -19,7 +19,7 @@ interface PropType {
 
 export default function GoodsCard({ id, picture, name, rating, price }: PropType) {
   const { num } = useParams();
-  const page = Number(num);
+  const page = Number(num) || 1;
   //----------cutting long title to 2 - 3 words------------
   let shortName = name;
   let i = 4;

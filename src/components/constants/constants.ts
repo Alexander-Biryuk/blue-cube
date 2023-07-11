@@ -1,8 +1,8 @@
 // paths
-export const HOME = '/';
-export const PAGE = '/page/';
+export const HOME = '/blue-cube';
+export const PAGE = HOME + '/page/';
 export const DESCRIPTION = '/products/';
-export const ORDERS = '/orders/';
+export const ORDERS = HOME + '/orders/';
 export const ORDER_DETAILS = '/order_details/'
 export const NOT_FOUND = '*';
 
